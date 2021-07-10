@@ -9,12 +9,22 @@ namespace DiscordBot
     public class CommandManager
     {
         private readonly DiscordSocketClient _client;
-        string CommandStart = "H@";
+
+        public string CommandStart { get; set; } = "H@";
+
+        public Dictionary<string, Func<SocketMessage, Task>> Commands { get; set; }
 
 
         public CommandManager(DiscordSocketClient client)
         {
+            Commands = new Dictionary<string, Func<SocketMessage, Task>>();
+
             _client = client;
+        }
+
+        public void AddCommand(string commandName, Func<SocketMessage, Task> action)
+        {
+            Commands.Add(commandName, action);
         }
 
         public async Task MessageReceivedAsync(SocketMessage message)
@@ -25,8 +35,24 @@ namespace DiscordBot
 
             if (message.Content.StartsWith(CommandStart))
             {
-
+                await ProcessCommandMessage(message);
             }
+        }
+
+        private async Task ProcessCommandMessage(SocketMessage message)
+        {
+            string command = message.Content[(CommandStart.Length)..];
+            command = command.Split(' ')[0];
+            command = command.ToLower();
+
+            Func<SocketMessage, Task> commandAction;
+            if (!Commands.TryGetValue(command, out commandAction))
+            {
+                await message.Channel.SendMessageAsync($"{message.Author.Mention}, Command \"{command}\" not found!");
+                return;
+            }
+
+            await commandAction(message);
         }
     }
 }

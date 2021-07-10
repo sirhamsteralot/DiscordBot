@@ -13,6 +13,8 @@ namespace DiscordBot
         static string token;
         CommandManager commandManager;
 
+        SystemCommands systemCommands;
+
 
         public Program()
         {
@@ -27,6 +29,9 @@ namespace DiscordBot
             _client.Log += LogAsync;
             _client.Ready += ReadyAsync;
             _client.MessageReceived += commandManager.MessageReceivedAsync;
+
+            systemCommands = new SystemCommands();
+            systemCommands.RegisterCommands(commandManager.Commands);
         }
 
         // Discord.Net heavily utilizes TAP for async, so we create
