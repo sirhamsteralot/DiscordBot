@@ -8,6 +8,6 @@ namespace DiscordBot
 {
     interface ICommandGroup
     {
-        void RegisterCommands(Dictionary<string, Func<SocketMessage, Task>> commands);
+        void RegisterCommands(CommandManager commandManager);
     }
 }

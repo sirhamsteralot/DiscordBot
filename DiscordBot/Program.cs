@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using System.IO;
+using DiscordBot._555Design;
 
 namespace DiscordBot
 {
@@ -14,6 +15,7 @@ namespace DiscordBot
         CommandManager commandManager;
 
         SystemCommands systemCommands;
+        TimerCommands timerCommands;
 
 
         public Program()
@@ -31,7 +33,10 @@ namespace DiscordBot
             _client.MessageReceived += commandManager.MessageReceivedAsync;
 
             systemCommands = new SystemCommands();
-            systemCommands.RegisterCommands(commandManager.Commands);
+            systemCommands.RegisterCommands(commandManager);
+
+            timerCommands = new TimerCommands();
+            timerCommands.RegisterCommands(commandManager);
         }
 
         // Discord.Net heavily utilizes TAP for async, so we create

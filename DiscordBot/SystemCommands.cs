@@ -10,14 +10,20 @@ namespace DiscordBot
     {
         StringBuilder responseBuilder = new StringBuilder();
 
-        public void RegisterCommands(Dictionary<string, Func<SocketMessage, Task>> commands)
+        public void RegisterCommands(CommandManager manager)
         {
-            commands.Add("ping", PongCommand);
+            manager.AddCommand("ping", PongCommand);
+            manager.AddCommand("ly", LYCommand);
         }
 
         public async Task PongCommand(SocketMessage message)
         {
                 await message.Channel.SendMessageAsync("Pong");
+        }
+
+        public async Task LYCommand(SocketMessage message)
+        {
+            await message.Channel.SendMessageAsync("I love you");
         }
     }
 }
