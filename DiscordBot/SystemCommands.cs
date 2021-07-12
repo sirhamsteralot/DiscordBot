@@ -18,7 +18,7 @@ namespace DiscordBot
 
         public async Task PongCommand(SocketMessage message)
         {
-                await message.Channel.SendMessageAsync("Pong!");
+                await message.Channel.SendMessageAsync("Pong!!");
         }
 
         public async Task LYCommand(SocketMessage message)
