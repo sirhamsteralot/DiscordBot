@@ -10,7 +10,7 @@ namespace DiscordBot
 {
     class Program
     {
-        private readonly DiscordSocketClient _client;
+        public static DiscordSocketClient _client;
         static string token;
         CommandManager commandManager;
 
