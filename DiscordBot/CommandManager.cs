@@ -10,14 +10,15 @@ namespace DiscordBot
     {
         private readonly DiscordSocketClient _client;
 
-        public string CommandStart { get; set; } = "H@";
+        public string CommandStart { get; set; }
 
         public Dictionary<string, Func<SocketMessage, Task>> Commands { get; set; }
 
 
-        public CommandManager(DiscordSocketClient client)
+        public CommandManager(DiscordSocketClient client, string commandStart)
         {
             Commands = new Dictionary<string, Func<SocketMessage, Task>>();
+            CommandStart = commandStart;
 
             _client = client;
         }
