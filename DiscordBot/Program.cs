@@ -13,9 +13,10 @@ namespace DiscordBot
     {
         public static DiscordSocketClient _client;
         public static SettingsSerialization settings;
+        public static CommandManager commandManager;
 
         static string token;
-        CommandManager commandManager;
+        
 
         SystemCommands systemCommands;
         TimerCommands timerCommands;

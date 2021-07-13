@@ -25,5 +25,22 @@ namespace DiscordBot
 
             return false;
         }
+
+        public static bool CheckMessageForRole(SocketMessage message, string RoleName)
+        {
+            SocketGuildUser author = message.Author as SocketGuildUser;
+            if (author != null) {
+            
+                foreach (var role in author.Roles)
+                {
+                    if (role.Name == RoleName)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }
