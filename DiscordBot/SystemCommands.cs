@@ -25,7 +25,8 @@ namespace DiscordBot
 
         public async Task LYCommand(SocketMessage message)
         {
-            await message.Channel.SendMessageAsync("I love you");
+            if (message.Author.Id == 302917497437290496)
+                await message.Channel.SendMessageAsync("I love you");
         }
 
         public async Task SaveSettingsCommand(SocketMessage message)
