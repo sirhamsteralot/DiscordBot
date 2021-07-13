@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -25,9 +26,12 @@ namespace DiscordBot.Serialization
 
         public void Deserialize()
         {
-            if (Directory.Exists(settingsPath))
+            string completeSettingsPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + '/' + settingsPath;
+
+            if (Directory.Exists(completeSettingsPath))
             {
-                string systemSettingsPath = settingsPath + '/' + "systemsettings.json";
+                string systemSettingsPath = completeSettingsPath + '/' + "systemsettings.json";
+
                 if (File.Exists(systemSettingsPath))
                 {
                     systemSettings = JsonSerializer.Deserialize<SystemSettings>(File.ReadAllText(systemSettingsPath));
@@ -43,10 +47,12 @@ namespace DiscordBot.Serialization
 
         public async void SerializeAsync()
         {
-            if (!Directory.Exists(settingsPath))
-                Directory.CreateDirectory(settingsPath);
+            string completeSettingsPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + '/' + settingsPath;
 
-            string fileName = settingsPath + '/' + "systemsettings.json";
+            if (!Directory.Exists(completeSettingsPath))
+                Directory.CreateDirectory(completeSettingsPath);
+
+            string fileName = completeSettingsPath + '/' + "systemsettings.json";
             using FileStream createStream = File.Create(fileName);
             await JsonSerializer.SerializeAsync(createStream, systemSettings);
             await createStream.DisposeAsync();
