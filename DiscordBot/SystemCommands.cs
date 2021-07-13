@@ -45,6 +45,7 @@ namespace DiscordBot
                 Program.settings.SerializeAsync();
 
                 await message.Channel.SendMessageAsync("Changed command code and saved!");
+                return;
             }
 
             await message.Channel.SendMessageAsync("Arguments missing!");
