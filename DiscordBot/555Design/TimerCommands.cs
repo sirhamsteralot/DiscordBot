@@ -41,7 +41,7 @@ namespace DiscordBot._555Design
 
             sb.AppendLine("Calculation variables: ");
             sb.Append("R1: ").Append(R1).AppendLine(" Ohm");
-            sb.Append("R2: ").Append(R2).AppendLine(" Ohm");
+            sb.Append("R2: ").Append(R2).AppendLine(" Ohm"); 
             sb.Append("C1: ");
             AppendNumberFormatted(sb, C1, "F");
 
