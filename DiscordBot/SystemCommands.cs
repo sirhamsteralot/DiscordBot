@@ -1,4 +1,5 @@
 ﻿using Discord.WebSocket;
+using Discord.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,6 +30,10 @@ namespace DiscordBot
 
         public async Task SaveSettingsCommand(SocketMessage message)
         {
+            if (!PermissionsChecker.IsSentByDiscordAdministrator(message))
+                return;
+
+
             Program.settings.SerializeAsync();
             await message.Channel.SendMessageAsync("Saved!");
         }
