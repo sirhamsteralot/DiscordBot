@@ -17,6 +17,12 @@ namespace DiscordBot.Scripting
 
         public async Task Eval(SocketMessage message)
         {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+            {
+                await message.Channel.SendMessageAsync("This command is only for trusted users!");
+                return;
+            }
+
             string arg = message.Content[(Program.commandManager.CommandStart.Length)..];
 
             try
