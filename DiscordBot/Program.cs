@@ -61,7 +61,7 @@ namespace DiscordBot
                 {
                     token = reader.ReadLine();
                 }
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException) {
                 Console.WriteLine("Input Token:");
                 token = Console.ReadLine();
 
