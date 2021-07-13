@@ -58,7 +58,8 @@ namespace DiscordBot
 
                 Program.settings.systemSettings.trustedUsers.Add(result);
                 Program.settings.SerializeAsync();
-                await message.Channel.SendMessageAsync("Changed command code and saved!");
+                await message.Channel.SendMessageAsync("added trusted user and saved!");
+                return;
             }
 
             await message.Channel.SendMessageAsync("You are not hamster!");
