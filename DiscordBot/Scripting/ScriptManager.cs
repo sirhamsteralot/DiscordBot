@@ -16,7 +16,7 @@ namespace DiscordBot.Scripting
                                   .WithReferences("System.Runtime, Version = 4.0.0.0, Culture = neutral, PublicKeyToken = b03f5f7f11d50a3a")
                                   .WithReferences(typeof(List<>).Assembly, typeof(Enumerable).Assembly, typeof(string).Assembly, typeof(ScriptManager).Assembly, typeof(StringBuilder).Assembly)
                                   .WithReferences(SelectAssemblies())
-                                  .WithImports("System", "System.Collections.Generic", "System.Timers", "System.Linq", "System.Text", "HaEPluginCore");
+                                  .WithImports("System", "System.Collections.Generic", "System.Timers", "System.Linq", "System.Text", "DiscordBot");
 
         public static async Task<object> ExecuteScript(string code)
         {

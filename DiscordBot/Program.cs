@@ -27,8 +27,6 @@ namespace DiscordBot
 
         public Program()
         {
-            HaEAssemblyResolver.ResolveAssembliesIn(new DirectoryInfo(Path.GetDirectoryName(typeof(Program).Assembly.Location)));
-
             settings = new SettingsSerialization();
 
             settings.Deserialize();
