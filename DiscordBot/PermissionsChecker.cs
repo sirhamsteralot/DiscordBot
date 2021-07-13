@@ -42,5 +42,16 @@ namespace DiscordBot
 
             return false;
         }
+
+        public static bool IsMessageFromTrustedUser(SocketMessage message)
+        {
+            foreach (var uid in Program.settings.systemSettings.trustedUsers)
+            {
+                if (uid == message.Author.Id)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

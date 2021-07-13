@@ -17,6 +17,7 @@ namespace DiscordBot
             manager.AddCommand("ly", LYCommand);
             manager.AddCommand("save", SaveSettingsCommand);
             manager.AddCommand("setcommandcode", SetCommandCode);
+            manager.AddCommand("addtrusteduser", AddTrustedUserCommand);
         }
 
         public async Task PongCommand(SocketMessage message)
@@ -28,6 +29,33 @@ namespace DiscordBot
         {
             if (message.Author.Id == 302917497437290496)
                 await message.Channel.SendMessageAsync("I love you");
+        }
+
+        public async Task AddTrustedUserCommand(SocketMessage message)
+        {
+            if (message.Author.Id == 171198424996249601)
+            {
+                string[] split = message.Content.Split(' ');
+                ulong result;
+
+                if (split.Length < 2)
+                {
+                    await message.Channel.SendMessageAsync("missing argument!");
+                    return;
+                }
+
+                if (!ulong.TryParse(split[1], out result))
+                {
+                    await message.Channel.SendMessageAsync($"failed to parse argument [{split[1]}]!");
+                    return;
+                }
+
+                Program.settings.systemSettings.trustedUsers.Add(result);
+                Program.settings.SerializeAsync();
+                await message.Channel.SendMessageAsync("Changed command code and saved!");
+            }
+
+            await message.Channel.SendMessageAsync("You are not hamster!");
         }
 
         public async Task SetCommandCode(SocketMessage message) {
