@@ -13,8 +13,8 @@ namespace DiscordBot.Scripting
     {
         static readonly Dictionary<string, AssemblyName> AssemblyNames = new Dictionary<string, AssemblyName>();
         public static ScriptOptions op = ScriptOptions.Default
-                                  .WithReferences(typeof(int).Assembly);//, typeof(List<>).Assembly, typeof(Enumerable).Assembly, typeof(string).Assembly, typeof(ScriptManager).Assembly, typeof(StringBuilder).Assembly)
-                                  //.WithImports("System", "System.Collections.Generic", "System.Timers", "System.Linq", "System.Text", "DiscordBot");
+                                  .WithReferences(typeof(int).Assembly, typeof(List<>).Assembly, typeof(Enumerable).Assembly, typeof(string).Assembly, typeof(ScriptManager).Assembly, typeof(StringBuilder).Assembly)
+                                  .WithImports("System", "System.Collections.Generic", "System.Timers", "System.Linq", "System.Text", "DiscordBot");
 
         public static async Task<object> ExecuteScript(string code)
         {
