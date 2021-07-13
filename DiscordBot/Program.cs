@@ -5,12 +5,15 @@ using Discord;
 using Discord.WebSocket;
 using System.IO;
 using DiscordBot._555Design;
+using DiscordBot.Serialization;
 
 namespace DiscordBot
 {
     class Program
     {
         public static DiscordSocketClient _client;
+        public static SettingsSerialization settings;
+
         static string token;
         CommandManager commandManager;
 
@@ -18,15 +21,18 @@ namespace DiscordBot
         TimerCommands timerCommands;
 
 
+
         public Program()
         {
-            
+            settings = new SettingsSerialization();
+
+            settings.Deserialize();
 
             // It is recommended to Dispose of a client when you are finished
             // using it, at the end of your app's lifetime.
             _client = new DiscordSocketClient();
 
-            commandManager = new CommandManager(_client);
+            commandManager = new CommandManager(_client, settings.systemSettings.commandCode);
 
             _client.Log += LogAsync;
             _client.Ready += ReadyAsync;

@@ -7,13 +7,18 @@ using System.Text.Json.Serialization;
 
 namespace DiscordBot.Serialization
 {
-    public class Serialization
+    public class SettingsSerialization
     {
-        SystemSettings systemSettings;
+        public SystemSettings systemSettings;
 
         readonly string settingsPath = "Settings";
 
-        public Serialization(string settingsPath)
+        public SettingsSerialization()
+        {
+
+        }
+
+        public SettingsSerialization(string settingsPath)
         {
             this.settingsPath = settingsPath;
         }

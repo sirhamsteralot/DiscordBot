@@ -14,6 +14,7 @@ namespace DiscordBot
         {
             manager.AddCommand("ping", PongCommand);
             manager.AddCommand("ly", LYCommand);
+            manager.AddCommand("save", SaveSettingsCommand);
         }
 
         public async Task PongCommand(SocketMessage message)
@@ -24,6 +25,11 @@ namespace DiscordBot
         public async Task LYCommand(SocketMessage message)
         {
             await message.Channel.SendMessageAsync("I love you");
+        }
+
+        public async Task SaveSettingsCommand(SocketMessage message)
+        {
+            Program.settings.SerializeAsync();
         }
     }
 }
