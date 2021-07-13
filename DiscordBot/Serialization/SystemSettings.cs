@@ -8,6 +8,6 @@ namespace DiscordBot.Serialization
     {
         public string commandCode = "H@";
 
-        public List<ulong> trustedUsers = new List<ulong>();
+        public HashSet<ulong> trustedUsers = new HashSet<ulong>();
     }
 }
