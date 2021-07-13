@@ -18,6 +18,7 @@ namespace DiscordBot
             manager.AddCommand("save", SaveSettingsCommand);
             manager.AddCommand("setcommandcode", SetCommandCode);
             manager.AddCommand("addtrusteduser", AddTrustedUserCommand);
+            manager.AddCommand("getauthorid", GetAuthorIDCommand);
         }
 
         public async Task PongCommand(SocketMessage message)
@@ -30,6 +31,11 @@ namespace DiscordBot
             if (message.Author.Id == 302917497437290496)
                 await message.Channel.SendMessageAsync("I love you");
         }
+        public async Task GetAuthorIDCommand(SocketMessage message)
+        {
+            await message.Channel.SendMessageAsync(message.Author.Id.ToString());
+        }
+
 
         public async Task AddTrustedUserCommand(SocketMessage message)
         {
