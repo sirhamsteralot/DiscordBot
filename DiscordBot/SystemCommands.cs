@@ -30,6 +30,7 @@ namespace DiscordBot
         public async Task SaveSettingsCommand(SocketMessage message)
         {
             Program.settings.SerializeAsync();
+            await message.Channel.SendMessageAsync("Saved!");
         }
     }
 }
