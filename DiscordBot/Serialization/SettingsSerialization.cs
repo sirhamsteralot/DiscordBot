@@ -35,6 +35,9 @@ namespace DiscordBot.Serialization
                 {
                     systemSettings = new SystemSettings();
                 }
+            } else
+            {
+                systemSettings = new SystemSettings();
             }
         }
 
