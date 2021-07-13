@@ -66,7 +66,7 @@ namespace DiscordBot
         }
 
         public async Task SetCommandCode(SocketMessage message) {
-            if (!PermissionsChecker.IsSentByDiscordAdministrator(message))
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
                 return;
 
             string[] parts = message.Content.Split(' ');
