@@ -8,9 +8,14 @@ using Microsoft.CodeAnalysis.Scripting;
 
 namespace DiscordBot.Scripting
 {
-    public class ScriptingCommands
+    public class ScriptingCommands :ICommandGroup
     {
-        public async static Task Eval(SocketMessage message)
+        public void RegisterCommands(CommandManager manager)
+        {
+            manager.AddCommand("eval", Eval);
+        }
+
+        public async Task Eval(SocketMessage message)
         {
             string arg = message.Content[(Program.commandManager.CommandStart.Length)..];
 
