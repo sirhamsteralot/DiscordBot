@@ -36,7 +36,17 @@ namespace DiscordBot
 
             if (message.Content.StartsWith(CommandStart))
             {
-                await ProcessCommandMessage(message);
+                try
+                {
+                    await ProcessCommandMessage(message);
+                } catch (Exception e)
+                {
+                    string response = $"Error executing command!\n" +
+                        $"```{e.Message}```";
+
+                    await message.Channel.SendMessageAsync(response);
+                }
+                
             }
         }
 
