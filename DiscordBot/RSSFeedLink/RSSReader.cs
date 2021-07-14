@@ -93,6 +93,7 @@ namespace DiscordBot.RSSFeedLink
             messageBuilder.Replace("<br>", "\n");
             messageBuilder.Replace("<li>", "\n- ");
             string output = messageBuilder.ToString();
+            messageBuilder.Clear();
 
             Regex.Replace(output, "<.*?>", String.Empty);
 
