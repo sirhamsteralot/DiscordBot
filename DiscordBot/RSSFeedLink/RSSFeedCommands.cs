@@ -46,8 +46,8 @@ namespace DiscordBot.RSSFeedLink
 
         public async Task TriggerRSS(SocketMessage message)
         {
+            await message.Channel.SendMessageAsync("Triggering!");
             rssreader.CheckRSS(null);
-            await message.Channel.SendMessageAsync("Triggered!");
         }
     }
 }

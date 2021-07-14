@@ -72,7 +72,7 @@ namespace DiscordBot.Serialization
 
             fileName = completeSettingsPath + '/' + "rssfeeds.json";
             using FileStream createStreamRss = File.Create(fileName);
-            await JsonSerializer.SerializeAsync(createStream, rssFeeds);
+            await JsonSerializer.SerializeAsync(createStreamRss, rssFeeds);
             await createStream.DisposeAsync();
         }
     }
