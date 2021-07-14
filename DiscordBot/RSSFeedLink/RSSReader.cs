@@ -42,13 +42,13 @@ namespace DiscordBot.RSSFeedLink
                         first = false;
                     }
 
-                    PrintRSS(item, trackedFeed);
+                    await PrintRSS(item, trackedFeed);
                     await Task.Delay(1000);
                 }
             }
         }
 
-        public async void PrintRSS(SyndicationItem item, RSSFeed feed)
+        public async Task PrintRSS(SyndicationItem item, RSSFeed feed)
         {
             messageBuilder.AppendLine($"**{item.Title}**");
             messageBuilder.AppendLine($"{item.Summary}");
