@@ -15,10 +15,14 @@ namespace DiscordBot.RSSFeedLink
         {
             manager.AddCommand("registerrss", RegisterRSSLinkCommand);
             manager.AddCommand("triggerrss", TriggerRSS);
+            manager.AddCommand("postlastrss", PostLastRss);
         }
 
         public async Task RegisterRSSLinkCommand(SocketMessage message)
         {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
             RSSFeed feed = new RSSFeed();
 
             string[] arguments = message.Content.Split(' ');
@@ -47,8 +51,23 @@ namespace DiscordBot.RSSFeedLink
 
         public async Task TriggerRSS(SocketMessage message)
         {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
             await message.Channel.SendMessageAsync("Triggering!");
             rssreader.CheckRSS(null);
+        }
+
+        public async Task PostLastRss(SocketMessage message)
+        {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
+            string[] split = message.Content.Split(' ');
+
+            await message.Channel.SendMessageAsync("Checking RSS!");
+
+            rssreader.PostLastRSS(split[1], message);
         }
     }
 }

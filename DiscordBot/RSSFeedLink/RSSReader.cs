@@ -50,6 +50,28 @@ namespace DiscordBot.RSSFeedLink
             }
         }
 
+        public async void PostLastRSS(string url, SocketMessage message)
+        {
+            XmlReader reader = XmlReader.Create(url);
+            SyndicationFeed feed = SyndicationFeed.Load(reader);
+            reader.Close();
+
+            foreach (var item in feed.Items)
+            {
+                messageBuilder.AppendLine($"**{item.Title.Text}**");
+                messageBuilder.AppendLine($"{SanetizeHTML(item.Summary.Text)}");
+                messageBuilder.AppendLine();
+
+                foreach (var link in item.Links)
+                    messageBuilder.AppendLine($"{link.Uri}");
+
+                break;
+            }
+
+            await message.Channel.SendMessageAsync(message.ToString());
+            messageBuilder.Clear();
+        }
+
         public async Task PrintRSS(SyndicationItem item, RSSFeed feed)
         {
             messageBuilder.AppendLine($"**{item.Title.Text}**");
