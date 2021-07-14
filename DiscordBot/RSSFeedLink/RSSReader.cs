@@ -50,8 +50,8 @@ namespace DiscordBot.RSSFeedLink
 
         public async Task PrintRSS(SyndicationItem item, RSSFeed feed)
         {
-            messageBuilder.AppendLine($"**{item.Title}**");
-            messageBuilder.AppendLine($"{item.Summary}");
+            messageBuilder.AppendLine($"**{item.Title.Text}**");
+            messageBuilder.AppendLine($"{item.Summary.Text}");
             messageBuilder.AppendLine();
 
             foreach( var link in item.Links)
