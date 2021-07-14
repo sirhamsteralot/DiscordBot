@@ -79,7 +79,7 @@ namespace DiscordBot.RSSFeedLink
             messageBuilder.AppendLine();
 
             foreach( var link in item.Links)
-                messageBuilder.AppendLine($"{link.Uri}");
+                messageBuilder.AppendLine($"<{link.Uri}>");
 
             var channel = Program._client.GetChannel(feed.channelId) as ISocketMessageChannel;
             await channel.SendMessageAsync(messageBuilder.ToString());
