@@ -95,7 +95,7 @@ namespace DiscordBot.RSSFeedLink
             string output = messageBuilder.ToString();
             messageBuilder.Clear();
 
-            Regex.Replace(output, "<.*?>", String.Empty);
+            output = Regex.Replace(output, "<.*?>", String.Empty);
 
             return output;
         }
