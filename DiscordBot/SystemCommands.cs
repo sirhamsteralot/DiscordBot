@@ -29,6 +29,9 @@ namespace DiscordBot
 
         public async Task ShutdownCommand(SocketMessage message)
         {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
             await message.Channel.SendMessageAsync("Bye!");
             Environment.Exit(0);
         }
