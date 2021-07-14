@@ -88,11 +88,15 @@ namespace DiscordBot.RSSFeedLink
 
         public string SanetizeHTML(string text)
         {
-            text.Replace("<br>", "\n");
-            text.Replace("<li>", "\n- ");
-            Regex.Replace(text, "<.*?>", String.Empty);
+            messageBuilder.Append(text);
 
-            return text;
+            messageBuilder.Replace("<br>", "\n");
+            messageBuilder.Replace("<li>", "\n- ");
+            string output = messageBuilder.ToString();
+
+            Regex.Replace(output, "<.*?>", String.Empty);
+
+            return output;
         }
     }
 }
