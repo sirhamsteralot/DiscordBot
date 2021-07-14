@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using Discord.WebSocket;
 
@@ -20,7 +21,7 @@ namespace DiscordBot.RSSFeedLink
             checkTimer = new Timer(CheckRSS, null, 6000, Program.settings.rssFeeds.CheckMillis);
         }
 
-        public void CheckRSS(object state)
+        public async void CheckRSS(object state)
         {
             foreach (var trackedFeed in TrackedFeeds)
             {
@@ -42,6 +43,7 @@ namespace DiscordBot.RSSFeedLink
                     }
 
                     PrintRSS(item, trackedFeed);
+                    await Task.Delay(1000);
                 }
             }
         }
