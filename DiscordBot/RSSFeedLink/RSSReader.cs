@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -52,7 +53,7 @@ namespace DiscordBot.RSSFeedLink
         public async Task PrintRSS(SyndicationItem item, RSSFeed feed)
         {
             messageBuilder.AppendLine($"**{item.Title.Text}**");
-            messageBuilder.AppendLine($"{item.Summary.Text}");
+            messageBuilder.AppendLine($"{SanetizeHTML(item.Summary.Text)}");
             messageBuilder.AppendLine();
 
             foreach( var link in item.Links)
@@ -61,6 +62,15 @@ namespace DiscordBot.RSSFeedLink
             var channel = Program._client.GetChannel(feed.channelId) as ISocketMessageChannel;
             await channel.SendMessageAsync(messageBuilder.ToString());
             messageBuilder.Clear();
+        }
+
+        public string SanetizeHTML(string text)
+        {
+            text.Replace("<br>", "\n");
+            text.Replace("<li>", "\n- ");
+            Regex.Replace(text, "<.*?>", String.Empty);
+
+            return text;
         }
     }
 }
