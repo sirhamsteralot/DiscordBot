@@ -68,7 +68,7 @@ namespace DiscordBot.RSSFeedLink
                 break;
             }
 
-            await message.Channel.SendMessageAsync(message.ToString());
+            await message.Channel.SendMessageAsync(messageBuilder.ToString());
             messageBuilder.Clear();
         }
 
