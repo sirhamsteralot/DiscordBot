@@ -8,6 +8,8 @@ namespace DiscordBot.RSSFeedLink
 {
     public class RSSFeedCommands
     {
+        RSSReader rssreader;
+
 
         public void RegisterCommands(CommandManager manager)
         {
@@ -38,6 +40,12 @@ namespace DiscordBot.RSSFeedLink
             feed.rssURL = arguments[2];
 
             await message.Channel.SendMessageAsync($"RSS Feed added\n channel: {message.Channel.Name}\n URL: {arguments[2]}");
+        }
+
+        public async Task TriggerRSS(SocketMessage message)
+        {
+            rssreader.CheckRSS(null);
+            await message.Channel.SendMessageAsync("Triggered!");
         }
     }
 }
