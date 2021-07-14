@@ -11,6 +11,7 @@ namespace DiscordBot.Serialization
     public class SettingsSerialization
     {
         public SystemSettings systemSettings;
+        public RSSFeeds rssFeeds;
 
         readonly string settingsPath = "Settings";
 
@@ -39,9 +40,21 @@ namespace DiscordBot.Serialization
                 {
                     systemSettings = new SystemSettings();
                 }
+
+                string rssfeedsPath = completeSettingsPath + '/' + "rssfeeds.json";
+
+                if (File.Exists(rssfeedsPath))
+                {
+                    rssFeeds = JsonSerializer.Deserialize<RSSFeeds>(File.ReadAllText(rssfeedsPath));
+                }
+                else
+                {
+                    rssFeeds = new RSSFeeds();
+                }
             } else
             {
                 systemSettings = new SystemSettings();
+                rssFeeds = new RSSFeeds();
             }
         }
 
@@ -55,6 +68,11 @@ namespace DiscordBot.Serialization
             string fileName = completeSettingsPath + '/' + "systemsettings.json";
             using FileStream createStream = File.Create(fileName);
             await JsonSerializer.SerializeAsync(createStream, systemSettings);
+            await createStream.DisposeAsync();
+
+            fileName = completeSettingsPath + '/' + "rssfeeds.json";
+            using FileStream createStreamRss = File.Create(fileName);
+            await JsonSerializer.SerializeAsync(createStream, rssFeeds);
             await createStream.DisposeAsync();
         }
     }

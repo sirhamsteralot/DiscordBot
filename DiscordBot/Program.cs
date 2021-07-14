@@ -7,6 +7,7 @@ using System.IO;
 using DiscordBot._555Design;
 using DiscordBot.Serialization;
 using DiscordBot.Scripting;
+using DiscordBot.RSSFeedLink;
 
 namespace DiscordBot
 {
@@ -22,6 +23,7 @@ namespace DiscordBot
         SystemCommands systemCommands;
         TimerCommands timerCommands;
         ScriptingCommands scriptingCommands;
+        RSSFeedCommands rssCommands;
 
 
 
@@ -49,6 +51,9 @@ namespace DiscordBot
 
             scriptingCommands = new ScriptingCommands();
             scriptingCommands.RegisterCommands(commandManager);
+
+            rssCommands = new RSSFeedCommands();
+            rssCommands.RegisterCommands(commandManager);
         }
 
         // Discord.Net heavily utilizes TAP for async, so we create
