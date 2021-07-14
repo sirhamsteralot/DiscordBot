@@ -8,7 +8,7 @@ namespace DiscordBot.RSSFeedLink
 {
     public class RSSFeedCommands
     {
-        RSSReader rssreader;
+        RSSReader rssreader = new RSSReader();
 
 
         public void RegisterCommands(CommandManager manager)
