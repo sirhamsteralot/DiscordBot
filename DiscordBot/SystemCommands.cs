@@ -19,11 +19,18 @@ namespace DiscordBot
             manager.AddCommand("setcommandcode", SetCommandCode);
             manager.AddCommand("addtrusteduser", AddTrustedUserCommand);
             manager.AddCommand("getauthorid", GetAuthorIDCommand);
+            manager.AddCommand("shutdown", ShutdownCommand);
         }
 
         public async Task PongCommand(SocketMessage message)
         {
             await message.Channel.SendMessageAsync("Pong!");
+        }
+
+        public async Task ShutdownCommand(SocketMessage message)
+        {
+            await message.Channel.SendMessageAsync("Bye!");
+            Environment.Exit(0);
         }
 
         public async Task LYCommand(SocketMessage message)
