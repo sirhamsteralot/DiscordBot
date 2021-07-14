@@ -14,6 +14,7 @@ namespace DiscordBot.RSSFeedLink
         public void RegisterCommands(CommandManager manager)
         {
             manager.AddCommand("registerrss", RegisterRSSLinkCommand);
+            manager.AddCommand("triggerrss", TriggerRSS);
         }
 
         public async Task RegisterRSSLinkCommand(SocketMessage message)
