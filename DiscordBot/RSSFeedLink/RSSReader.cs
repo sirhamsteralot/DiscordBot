@@ -91,7 +91,7 @@ namespace DiscordBot.RSSFeedLink
             messageBuilder.Append(text);
 
             messageBuilder.Replace("<br>", "\n");
-            messageBuilder.Replace("<li>", "\n- ");
+            messageBuilder.Replace("<li>", "- ");
             string output = messageBuilder.ToString();
             messageBuilder.Clear();
 
