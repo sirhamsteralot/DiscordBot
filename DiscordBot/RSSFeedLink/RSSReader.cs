@@ -40,6 +40,7 @@ namespace DiscordBot.RSSFeedLink
                     {
                         trackedFeed.lastGUID = item.Id;
                         first = false;
+                        Program.settings.SerializeAsync();
                     }
 
                     await PrintRSS(item, trackedFeed);
