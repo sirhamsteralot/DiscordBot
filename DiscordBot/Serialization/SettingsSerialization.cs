@@ -35,7 +35,15 @@ namespace DiscordBot.Serialization
 
                 if (File.Exists(systemSettingsPath))
                 {
-                    systemSettings = JsonSerializer.Deserialize<SystemSettings>(File.ReadAllText(systemSettingsPath));
+                    try
+                    {
+                        systemSettings = JsonSerializer.Deserialize<SystemSettings>(File.ReadAllText(systemSettingsPath));
+                    }
+                    catch (JsonException)
+                    {
+                        systemSettings = new SystemSettings();
+                    }
+
                 } else
                 {
                     systemSettings = new SystemSettings();
@@ -45,7 +53,14 @@ namespace DiscordBot.Serialization
 
                 if (File.Exists(rssfeedsPath))
                 {
-                    rssFeeds = JsonSerializer.Deserialize<RSSFeeds>(File.ReadAllText(rssfeedsPath));
+                    try
+                    {
+                        rssFeeds = JsonSerializer.Deserialize<RSSFeeds>(File.ReadAllText(rssfeedsPath));
+                    }
+                    catch (JsonException) 
+                        {
+                        rssFeeds = new RSSFeeds();
+                    }
                 }
                 else
                 {
