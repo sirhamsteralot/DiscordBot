@@ -30,19 +30,13 @@ namespace DiscordBot.RSSFeedLink
                 SyndicationFeed feed = SyndicationFeed.Load(reader);
                 reader.Close();
 
-                bool first = true;
-
                 foreach (SyndicationItem item in feed.Items)
                 {
                     if (item.PublishDate < trackedFeed.lastPostDate)
                         break;
                     else
-                        trackedFeed.lastPostDate = item.PublishDate;
-
-                    if (first)
                     {
                         trackedFeed.lastPostDate = item.PublishDate;
-                        first = false;
                         Program.settings.SerializeAsync();
                     }
 
