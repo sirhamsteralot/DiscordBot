@@ -13,9 +13,9 @@ namespace DiscordBot.RSSFeedLink
 
         public void RegisterCommands(CommandManager manager)
         {
-            manager.AddCommand("registerrss", RegisterRSSLinkCommand);
-            manager.AddCommand("triggerrss", TriggerRSS);
-            manager.AddCommand("postlastrss", PostLastRss);
+            manager.AddCommand("registerrss", RegisterRSSLinkCommand, "Registers a new RSS feed to the tracker, usage: registerrss *channel_id* *rss_url*");
+            manager.AddCommand("triggerrss", TriggerRSS, "Triggers an update of the rss reader");
+            manager.AddCommand("postlastrss", PostLastRss, "posts the last rss of an rss url, usage: postlastrss *rss_url*");
         }
 
         public async Task RegisterRSSLinkCommand(SocketMessage message)

@@ -12,7 +12,7 @@ namespace DiscordBot._555Design
 
         public void RegisterCommands(CommandManager manager)
         {
-            manager.AddCommand("555astable", AstableCommand);
+            manager.AddCommand("555astable", AstableCommand, "calculates 555 timer properties, usage: 555astable *R1* *R2* *C1*");
         }
 
         public async Task AstableCommand(SocketMessage message)
@@ -21,6 +21,13 @@ namespace DiscordBot._555Design
             double TimeH, TimeL, TimeP, Freq, DutyCycle;
 
             string[] split = message.Content.Split(' ');
+
+            if (split.Length < 4)
+            {
+                await message.Channel.SendMessageAsync("Not enough arguments!");
+                return;
+            }
+
 
             if (!double.TryParse(split[1], out R1))
                 await message.Channel.SendMessageAsync("Could not parse R1!");

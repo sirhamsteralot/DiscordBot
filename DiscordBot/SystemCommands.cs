@@ -10,16 +10,55 @@ namespace DiscordBot
     public class SystemCommands : ICommandGroup
     {
         StringBuilder responseBuilder = new StringBuilder();
+        CommandManager _manager;
 
         public void RegisterCommands(CommandManager manager)
         {
-            manager.AddCommand("ping", PongCommand);
+            manager.AddCommand("ping", PongCommand, "pongs");
             manager.AddCommand("ly", LYCommand);
-            manager.AddCommand("save", SaveSettingsCommand);
-            manager.AddCommand("setcommandcode", SetCommandCode);
-            manager.AddCommand("addtrusteduser", AddTrustedUserCommand);
-            manager.AddCommand("getauthorid", GetAuthorIDCommand);
-            manager.AddCommand("shutdown", ShutdownCommand);
+            manager.AddCommand("save", SaveSettingsCommand, "saves settings to server");
+            manager.AddCommand("setcommandcode", SetCommandCode, "sets a new command code, usage: setcommandcode *code*");
+            manager.AddCommand("addtrusteduser", AddTrustedUserCommand, "Adds a trusted user, usage: addtrusteduser *id*");
+            manager.AddCommand("getauthorid", GetAuthorIDCommand, "Gets the id of the person using this command.");
+            manager.AddCommand("shutdown", ShutdownCommand, "Shuts down the bot");
+            manager.AddCommand("help", HelpCommand, "Shows a list of all commands, use Help *command name* to get detailed information about a command.");
+            _manager = manager;
+        }
+
+        public async Task HelpCommand(SocketMessage message)
+        {
+            string[] split = message.Content.Split(' ');
+
+            if (split.Length > 1)
+            {
+                // return help for the commandname
+                string helptext;
+                if (_manager.HelpText.TryGetValue(split[1], out helptext))
+                {
+                    responseBuilder.Append("Showing Help for command: ").AppendLine(split[1]);
+                    responseBuilder.AppendLine(helptext);
+                } else
+                {
+                    responseBuilder.AppendLine($"Could not find help for command {split[1]}, command not registered or help does not exist for command");
+                }
+
+                await message.Channel.SendMessageAsync(responseBuilder.ToString());
+                responseBuilder.Clear();
+                return;
+            }
+
+            // return list of commands
+
+            responseBuilder.AppendLine("Showing all available commands, use Help *command name* to get detailed information about a command.");
+
+            foreach (var commandName in _manager.Commands.Keys)
+            {
+                responseBuilder.AppendLine($"{commandName}");
+            }
+
+            await message.Channel.SendMessageAsync(responseBuilder.ToString());
+            responseBuilder.Clear();
+            return;
         }
 
         public async Task PongCommand(SocketMessage message)

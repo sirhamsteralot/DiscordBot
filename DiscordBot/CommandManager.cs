@@ -13,11 +13,13 @@ namespace DiscordBot
         public string CommandStart { get; set; }
 
         public Dictionary<string, Func<SocketMessage, Task>> Commands { get; set; }
+        public Dictionary<string, string> HelpText { get; set; }
 
 
         public CommandManager(DiscordSocketClient client, string commandStart)
         {
             Commands = new Dictionary<string, Func<SocketMessage, Task>>();
+            HelpText = new Dictionary<string, string>();
             CommandStart = commandStart;
 
             _client = client;
@@ -26,6 +28,16 @@ namespace DiscordBot
         public void AddCommand(string commandName, Func<SocketMessage, Task> action)
         {
             Commands.Add(commandName, action);
+        }
+        public void AddCommand(string commandName, Func<SocketMessage, Task> action, string helpText)
+        {
+            AddCommand(commandName, action);
+            AddHelpText(commandName, helpText);
+        }
+
+        public void AddHelpText(string commandName, string helpText)
+        {
+            HelpText.Add(commandName, helpText);
         }
 
         public async Task MessageReceivedAsync(SocketMessage message)
