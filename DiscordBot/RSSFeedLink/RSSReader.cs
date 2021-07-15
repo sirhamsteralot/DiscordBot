@@ -32,14 +32,12 @@ namespace DiscordBot.RSSFeedLink
 
                 bool first = true;
 
-                
-
                 foreach (SyndicationItem item in feed.Items)
                 {
                     if (item.Id == trackedFeed.lastGUID)
                         break;
 
-                    if (first || trackedFeed.lastGUID == null)
+                    if (first || trackedFeed.lastGUID == "")
                     {
                         trackedFeed.lastGUID = item.Id;
                         first = false;
@@ -75,6 +73,20 @@ namespace DiscordBot.RSSFeedLink
 
             await message.Channel.SendMessageAsync(messageBuilder.ToString());
             messageBuilder.Clear();
+        }
+
+        public async void PostLastRSS(RSSFeed rss)
+        {
+            XmlReader reader = XmlReader.Create(rss.rssURL);
+            SyndicationFeed feed = SyndicationFeed.Load(reader);
+            reader.Close();
+
+            foreach (var item in feed.Items)
+            {
+                await PrintRSS(item, rss);
+                rss.lastGUID = item.Id;
+                break;
+            }
         }
 
         public async Task PrintRSS(SyndicationItem item, RSSFeed feed)
