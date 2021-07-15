@@ -36,6 +36,8 @@ namespace DiscordBot.RSSFeedLink
                 {
                     if (item.PublishDate < trackedFeed.lastPostDate)
                         break;
+                    else
+                        trackedFeed.lastPostDate = item.PublishDate;
 
                     if (first)
                     {
