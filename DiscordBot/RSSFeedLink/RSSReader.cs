@@ -34,21 +34,18 @@ namespace DiscordBot.RSSFeedLink
 
                 foreach (SyndicationItem item in feed.Items)
                 {
-                    if (item.Id == trackedFeed.lastGUID)
+                    if (item.PublishDate < trackedFeed.lastPostDate)
                         break;
 
-                    if (first || trackedFeed.lastGUID == "")
+                    if (first)
                     {
-                        trackedFeed.lastGUID = item.Id;
+                        trackedFeed.lastPostDate = item.PublishDate;
                         first = false;
                         Program.settings.SerializeAsync();
                     }
 
                     await PrintRSS(item, trackedFeed);
                     await Task.Delay(1000);
-
-                    if (trackedFeed.lastGUID == null)
-                        break;
                 }
             }
         }
@@ -84,7 +81,7 @@ namespace DiscordBot.RSSFeedLink
             foreach (var item in feed.Items)
             {
                 await PrintRSS(item, rss);
-                rss.lastGUID = item.Id;
+                rss.lastPostDate = item.PublishDate;
                 break;
             }
         }
