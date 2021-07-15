@@ -32,7 +32,7 @@ namespace DiscordBot.RSSFeedLink
 
                 foreach (SyndicationItem item in feed.Items)
                 {
-                    if (item.PublishDate < trackedFeed.lastPostDate)
+                    if (item.PublishDate <= trackedFeed.lastPostDate)
                         break;
                     else
                     {
