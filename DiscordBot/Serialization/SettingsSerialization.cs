@@ -71,7 +71,7 @@ namespace DiscordBot.Serialization
 
                 string customResponsesPath = completeSettingsPath + '/' + "customresponses.json";
 
-                if (File.Exists(rssfeedsPath))
+                if (File.Exists(customResponsesPath))
                 {
                     try
                     {
