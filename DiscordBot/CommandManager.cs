@@ -1,4 +1,5 @@
 ﻿using Discord.WebSocket;
+using DiscordBot.CustomCommands;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace DiscordBot
     public class CommandManager
     {
         private readonly DiscordSocketClient _client;
+        private CustomResponseManager _customResponseMgr = new CustomResponseManager();
 
         public string CommandStart { get; set; }
 
@@ -71,7 +73,7 @@ namespace DiscordBot
             Func<SocketMessage, Task> commandAction;
             if (!Commands.TryGetValue(command, out commandAction))
             {
-                await message.Channel.SendMessageAsync($"{message.Author.Mention}, Command \"{command}\" not found!");
+                await _customResponseMgr.ProcessCommandMessage(message, command);
                 return;
             }
 

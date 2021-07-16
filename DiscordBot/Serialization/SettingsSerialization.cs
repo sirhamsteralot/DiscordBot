@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiscordBot.CustomCommands;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -12,6 +13,7 @@ namespace DiscordBot.Serialization
     {
         public SystemSettings systemSettings;
         public RSSFeeds rssFeeds;
+        public CustomResponseSettings customResponses;
 
         readonly string settingsPath = "Settings";
 
@@ -66,8 +68,27 @@ namespace DiscordBot.Serialization
                 {
                     rssFeeds = new RSSFeeds();
                 }
+
+                string customResponsesPath = completeSettingsPath + '/' + "customresponses.json";
+
+                if (File.Exists(rssfeedsPath))
+                {
+                    try
+                    {
+                        customResponses = JsonSerializer.Deserialize<CustomResponseSettings>(File.ReadAllText(customResponsesPath));
+                    }
+                    catch (JsonException)
+                    {
+                        customResponses = new CustomResponseSettings();
+                    }
+                }
+                else
+                {
+                    customResponses = new CustomResponseSettings();
+                }
             } else
             {
+                customResponses = new CustomResponseSettings();
                 systemSettings = new SystemSettings();
                 rssFeeds = new RSSFeeds();
             }
@@ -88,7 +109,12 @@ namespace DiscordBot.Serialization
             fileName = completeSettingsPath + '/' + "rssfeeds.json";
             using FileStream createStreamRss = File.Create(fileName);
             await JsonSerializer.SerializeAsync(createStreamRss, rssFeeds);
-            await createStream.DisposeAsync();
+            await createStreamRss.DisposeAsync();
+
+            fileName = completeSettingsPath + '/' + "customresponses.json";
+            using FileStream createCRstream = File.Create(fileName);
+            await JsonSerializer.SerializeAsync(createCRstream, customResponses);
+            await createCRstream.DisposeAsync();
         }
     }
 }

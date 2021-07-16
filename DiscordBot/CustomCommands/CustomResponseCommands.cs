@@ -1,0 +1,63 @@
+﻿using Discord.WebSocket;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using DiscordBot.Serialization;
+
+namespace DiscordBot.CustomCommands
+{
+    public class CustomResponseCommands : ICommandGroup
+    {
+        public void RegisterCommands(CommandManager manager)
+        {
+            manager.AddCommand("addresponse", AddResponseCommand, "adds a response, usage: addresponse *response_name* *response_content*");
+            manager.AddCommand("removeresponse", RemoveResponseCommand, "removes a response, usage: removeresponse *response_name*");
+        }
+
+        public async Task AddResponseCommand(SocketMessage message)
+        {
+            string[] splitCommand = message.Content.Split(' ');
+
+            if (splitCommand.Length < 3)
+                await message.Channel.SendMessageAsync("Not enough arguments!");
+
+            CustomResponse response = new CustomResponse();
+            response.Name = splitCommand[1];
+            response.Content = splitCommand[2];
+
+            Program.settings.customResponses.responses.Add(response);
+
+            Program.settings.SerializeAsync();
+            await message.Channel.SendMessageAsync("Response Added!");
+        }
+
+        public async Task RemoveResponseCommand(SocketMessage message)
+        {
+            string[] splitCommand = message.Content.Split(' ');
+
+            if (splitCommand.Length < 2)
+                await message.Channel.SendMessageAsync("Not enough arguments!");
+
+            CustomResponse toRemove = null;
+
+            foreach (var response in Program.settings.customResponses.responses)
+            {
+                if (response.Name == splitCommand[1])
+                {
+                    toRemove = response;
+                    break;
+                }
+            }
+
+            if (toRemove != null)
+            {
+                Program.settings.customResponses.responses.Remove(toRemove);
+                await message.Channel.SendMessageAsync("Removed!");
+                return;
+            }
+
+            await message.Channel.SendMessageAsync("Could not find message to remove!");
+        }
+    }
+}
