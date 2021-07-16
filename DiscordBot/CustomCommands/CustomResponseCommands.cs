@@ -17,6 +17,9 @@ namespace DiscordBot.CustomCommands
 
         public async Task AddResponseCommand(SocketMessage message)
         {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
             string[] splitCommand = message.Content.Split(' ');
 
             if (splitCommand.Length < 3)
@@ -34,6 +37,9 @@ namespace DiscordBot.CustomCommands
 
         public async Task RemoveResponseCommand(SocketMessage message)
         {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
             string[] splitCommand = message.Content.Split(' ');
 
             if (splitCommand.Length < 2)
