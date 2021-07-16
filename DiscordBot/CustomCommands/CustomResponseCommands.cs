@@ -9,10 +9,26 @@ namespace DiscordBot.CustomCommands
 {
     public class CustomResponseCommands : ICommandGroup
     {
+        StringBuilder sb = new StringBuilder();
+
         public void RegisterCommands(CommandManager manager)
         {
             manager.AddCommand("addresponse", AddResponseCommand, "adds a response, usage: addresponse *response_name* *response_content*");
             manager.AddCommand("removeresponse", RemoveResponseCommand, "removes a response, usage: removeresponse *response_name*");
+            manager.AddCommand("listcustom", ListCustomCommandsCommand, "lists the custom commands");
+
+        }
+
+        public async Task ListCustomCommandsCommand(SocketMessage message)
+        {
+            sb.AppendLine("custom responses:");
+
+            foreach (var response in Program.settings.customResponses.responses)
+            {
+                sb.AppendLine(response.Name);
+            }
+
+            await message.Channel.SendMessageAsync(sb.ToString());
         }
 
         public async Task AddResponseCommand(SocketMessage message)
