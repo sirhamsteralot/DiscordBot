@@ -29,6 +29,8 @@ namespace DiscordBot.CustomCommands
             }
 
             await message.Channel.SendMessageAsync(sb.ToString());
+
+            sb.Clear();
         }
 
         public async Task AddResponseCommand(SocketMessage message)
@@ -74,7 +76,7 @@ namespace DiscordBot.CustomCommands
 
             if (toRemove != null)
             {
-                Program.settings.customResponses.responses.Remove(toRemove);
+                Program.settings.customResponses.responses.RemoveWhere(x => x.Name == splitCommand[1]);
                 await message.Channel.SendMessageAsync("Removed!");
                 return;
             }
