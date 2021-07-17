@@ -48,6 +48,9 @@ namespace DiscordBot
             if (message.Author.Id == _client.CurrentUser.Id)
                 return;
 
+            if (PermissionsChecker.CheckMessageForBotBan(message))
+                return;
+
             if (message.Content.StartsWith(CommandStart))
             {
                 try

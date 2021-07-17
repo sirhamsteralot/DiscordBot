@@ -12,6 +12,17 @@ namespace DiscordBot
             return CheckMessageForGuildPerm(message, Discord.GuildPermission.Administrator);
         }
 
+        public static bool CheckMessageForBotBan(SocketMessage message)
+        {
+            foreach (var uid in Program.settings.systemSettings.bannedUsers)
+            {
+                if (uid == message.Author.Id)
+                    return true;
+            }
+
+            return false;
+        }
+
         public static bool CheckMessageForGuildPerm(SocketMessage message, Discord.GuildPermission permission)
         {
             SocketGuildUser author = message.Author as SocketGuildUser;

@@ -19,6 +19,7 @@ namespace DiscordBot
             manager.AddCommand("save", SaveSettingsCommand, "saves settings to server");
             manager.AddCommand("setcommandcode", SetCommandCode, "sets a new command code, usage: setcommandcode *code*");
             manager.AddCommand("addtrusteduser", AddTrustedUserCommand, "Adds a trusted user, usage: addtrusteduser *id*");
+            manager.AddCommand("botbanuser", AddBannedUserCommand, "Bans a user from using the bot, usage: banuser *id*");
             manager.AddCommand("getauthorid", GetAuthorIDCommand, "Gets the id of the person using this command.");
             manager.AddCommand("shutdown", ShutdownCommand, "Shuts down the bot");
             manager.AddCommand("help", HelpCommand, "Shows a list of all commands, use Help *command name* to get detailed information about a command.");
@@ -108,6 +109,34 @@ namespace DiscordBot
                 Program.settings.systemSettings.trustedUsers.Add(result);
                 Program.settings.SerializeAsync();
                 await message.Channel.SendMessageAsync("added trusted user and saved!");
+                return;
+            }
+
+            await message.Channel.SendMessageAsync("You are not hamster!");
+        }
+
+        public async Task AddBannedUserCommand(SocketMessage message)
+        {
+            if (message.Author.Id == 171198424996249601)
+            {
+                string[] split = message.Content.Split(' ');
+                ulong result;
+
+                if (split.Length < 2)
+                {
+                    await message.Channel.SendMessageAsync("missing argument!");
+                    return;
+                }
+
+                if (!ulong.TryParse(split[1], out result))
+                {
+                    await message.Channel.SendMessageAsync($"failed to parse argument [{split[1]}]!");
+                    return;
+                }
+
+                Program.settings.systemSettings.bannedUsers.Add(result);
+                Program.settings.SerializeAsync();
+                await message.Channel.SendMessageAsync("banned user and saved!");
                 return;
             }
 
