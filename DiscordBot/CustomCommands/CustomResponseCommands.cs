@@ -45,9 +45,15 @@ namespace DiscordBot.CustomCommands
 
             CustomResponse response = new CustomResponse();
             response.Name = splitCommand[1];
-            response.Content = splitCommand[2];
 
-            Program.settings.customResponses.responses.Add(message.Content.Substring(13));
+            for (int i = 2; i < splitCommand.Length; i++) {
+                sb.Append(splitCommand[i]).Append(' ');
+            }
+
+            response.Content = sb.ToString();
+            sb.Clear();
+
+            Program.settings.customResponses.responses.Add(response);
 
             Program.settings.SerializeAsync();
             await message.Channel.SendMessageAsync("Response Added!");
