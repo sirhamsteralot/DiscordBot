@@ -44,6 +44,9 @@ namespace DiscordBot.CustomCommands
                 await message.Channel.SendMessageAsync("Not enough arguments!");
 
             CustomResponse response = new CustomResponse();
+            if (splitCommand[1] == "")
+                await message.Channel.SendMessageAsync("command name is required!");
+
             response.Name = splitCommand[1];
 
             for (int i = 2; i < splitCommand.Length; i++) {
