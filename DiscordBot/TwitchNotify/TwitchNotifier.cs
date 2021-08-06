@@ -26,7 +26,7 @@ namespace DiscordBot.TwitchNotify
         {
             foreach (var channel in Program.settings.twitchSettings.twitchChannels)
             {
-                string Url = "https://api.twitch.tv/kraken/streams/" + channel.ChannelName;
+                string Url = "https://api.twitch.tv/helix/streams?user_login=" + channel.ChannelName;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
 
                 request.Method = "Get";
