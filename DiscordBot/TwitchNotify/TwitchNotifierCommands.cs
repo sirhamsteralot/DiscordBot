@@ -71,6 +71,7 @@ namespace DiscordBot.TwitchNotify
                 }
 
                 await message.Channel.SendMessageAsync("added channel to follow!");
+                return;
             }
 
             await message.Channel.SendMessageAsync("missing arguments");
