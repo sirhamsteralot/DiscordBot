@@ -21,6 +21,8 @@ namespace DiscordBot.TwitchNotify
                 return;
 
             Program.twitchNotifier.CheckForLive(this);
+
+            await message.Channel.SendMessageAsync($"Checked {Program.settings.twitchSettings.twitchChannels.Count} channels!");
         }
 
         public async Task SetTwitchPollingDelay(SocketMessage message)
