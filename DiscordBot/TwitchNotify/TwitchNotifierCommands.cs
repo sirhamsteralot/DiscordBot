@@ -12,7 +12,27 @@ namespace DiscordBot.TwitchNotify
         {
             manager.AddCommand("settwitchpollingdelay", SetTwitchPollingDelay, "sets the polling delay for twitch. usage: settwitchpollingdelay {delay(ms)}");
             manager.AddCommand("addtwitchchannel", AddChannel, "adds a twitch channel to give live notifications on. usage: addtwitchchannel {channelname} {discord channel}");
+            manager.AddCommand("removetwitchchannel", RemoveChannel, "removes a twitch channel to check. usage: removeChannel {channelname}");
             manager.AddCommand("livecheck", LiveCheck, "triggers a live check");
+        }
+
+        private async Task RemoveChannel(SocketMessage message)
+        {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
+            string[] split = message.Content.Split(' ');
+
+            if (split.Length > 1)
+            {
+                int removed = Program.settings.twitchSettings.twitchChannels.RemoveWhere(x => x.ChannelName == split[1]);
+
+                Program.settings.SerializeAsync();
+                await message.Channel.SendMessageAsync($"removed {removed} channels to follow!");
+                return;
+            }
+
+            await message.Channel.SendMessageAsync("missing arguments");
         }
 
         public async Task LiveCheck(SocketMessage message)
