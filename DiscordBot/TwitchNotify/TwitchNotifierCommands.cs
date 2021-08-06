@@ -20,9 +20,9 @@ namespace DiscordBot.TwitchNotify
             if (!PermissionsChecker.IsMessageFromTrustedUser(message))
                 return;
 
-            Program.twitchNotifier.CheckForLive(this);
+            await message.Channel.SendMessageAsync($"Checking {Program.settings.twitchSettings.twitchChannels.Count} channels!");
 
-            await message.Channel.SendMessageAsync($"Checked {Program.settings.twitchSettings.twitchChannels.Count} channels!");
+            Program.twitchNotifier.CheckForLive(this);
         }
 
         public async Task SetTwitchPollingDelay(SocketMessage message)
