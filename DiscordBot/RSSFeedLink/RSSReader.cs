@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml;
 using Discord.WebSocket;
 
@@ -84,7 +85,7 @@ namespace DiscordBot.RSSFeedLink
 
         public async Task PrintRSS(SyndicationItem item, RSSFeed feed)
         {
-            messageBuilder.AppendLine($"**{item.Title.Text}**");
+            messageBuilder.AppendLine($"**{SanetizeHTML(item.Title.Text)}**");
             messageBuilder.AppendLine($"{SanetizeHTML(item.Summary.Text)}");
             messageBuilder.AppendLine();
 
@@ -98,7 +99,8 @@ namespace DiscordBot.RSSFeedLink
 
         public string SanetizeHTML(string text)
         {
-            messageBuilder.Append(text);
+            
+            messageBuilder.Append(HttpUtility.HtmlDecode(text));
 
             messageBuilder.Replace("<br>", "\n");
             messageBuilder.Replace("<li>", "- ");
