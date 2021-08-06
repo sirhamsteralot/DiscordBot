@@ -14,6 +14,26 @@ namespace DiscordBot.TwitchNotify
             manager.AddCommand("addtwitchchannel", AddChannel, "adds a twitch channel to give live notifications on. usage: addtwitchchannel {channelname} {discord channel}");
             manager.AddCommand("removetwitchchannel", RemoveChannel, "removes a twitch channel to check. usage: removeChannel {channelname}");
             manager.AddCommand("livecheck", LiveCheck, "triggers a live check");
+            manager.AddCommand("setauthcode", SetAuthorizationCode, "sets the twitch 0auth code to make requests to the twitch api, usage: setauthcode {code}");
+        }
+
+        private async Task SetAuthorizationCode(SocketMessage message)
+        {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
+            string[] split = message.Content.Split(' ');
+
+            if (split.Length > 1)
+            {
+                Program.settings.systemSettings.twitchAuthorizationCode = split[1];
+
+                Program.settings.SerializeAsync();
+                await message.Channel.SendMessageAsync($"set 0auth code!");
+                return;
+            }
+
+            await message.Channel.SendMessageAsync("missing arguments");
         }
 
         private async Task RemoveChannel(SocketMessage message)

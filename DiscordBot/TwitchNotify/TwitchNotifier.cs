@@ -24,6 +24,9 @@ namespace DiscordBot.TwitchNotify
 
         public async void CheckForLive(object state)
         {
+            if (Program.settings.systemSettings.twitchAuthorizationCode == "")
+                return;
+
             foreach (var channel in Program.settings.twitchSettings.twitchChannels)
             {
                 string Url = "https://api.twitch.tv/helix/streams?user_login=" + channel.ChannelName;
@@ -32,6 +35,7 @@ namespace DiscordBot.TwitchNotify
                 request.Method = "Get";
                 request.Timeout = 1000;
                 request.Headers.Add("Client-ID", "u363xalk2xef1g4miyom7wc7zq3fzn");
+                request.Headers.Add("Authorization", " Bearer " + Program.settings.systemSettings.twitchAuthorizationCode);
 
                 using (var s = request.GetResponse().GetResponseStream())
                 {
