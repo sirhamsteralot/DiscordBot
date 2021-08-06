@@ -43,10 +43,10 @@ namespace DiscordBot.TwitchNotify
                     {
 
                         var jsonObject = JObject.Parse(sr.ReadToEnd());
-                        var jsonStream = jsonObject["stream"];
+                        
 
                         // twitch channel is online if stream is not null.
-                        bool newStatus = jsonStream.Type != JTokenType.Null;
+                        bool newStatus = jsonObject?.GetValue("type")?.ToString() == "live" ?? false;
 
                         if (newStatus && channel.LastStatus != newStatus)
                         {
