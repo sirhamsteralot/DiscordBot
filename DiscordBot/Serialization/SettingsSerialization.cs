@@ -14,6 +14,7 @@ namespace DiscordBot.Serialization
         public SystemSettings systemSettings;
         public RSSFeeds rssFeeds;
         public CustomResponseSettings customResponses;
+        public TwitchNotifySettings twitchSettings;
 
         readonly string settingsPath = "Settings";
 
@@ -86,8 +87,27 @@ namespace DiscordBot.Serialization
                 {
                     customResponses = new CustomResponseSettings();
                 }
+
+                string twitchSettingsPath = completeSettingsPath + '/' + "twitchSettings.json";
+
+                if (File.Exists(twitchSettingsPath))
+                {
+                    try
+                    {
+                        twitchSettings = JsonSerializer.Deserialize<TwitchNotifySettings>(File.ReadAllText(twitchSettingsPath));
+                    }
+                    catch (JsonException)
+                    {
+                        twitchSettings = new TwitchNotifySettings();
+                    }
+                }
+                else
+                {
+                    twitchSettings = new TwitchNotifySettings();
+                }
             } else
             {
+                twitchSettings = new TwitchNotifySettings();
                 customResponses = new CustomResponseSettings();
                 systemSettings = new SystemSettings();
                 rssFeeds = new RSSFeeds();
@@ -114,6 +134,11 @@ namespace DiscordBot.Serialization
             fileName = completeSettingsPath + '/' + "customresponses.json";
             using FileStream createCRstream = File.Create(fileName);
             await JsonSerializer.SerializeAsync(createCRstream, customResponses);
+            await createCRstream.DisposeAsync();
+
+            fileName = completeSettingsPath + '/' + "twitchSettings.json";
+            using FileStream createTNstream = File.Create(fileName);
+            await JsonSerializer.SerializeAsync(createTNstream, twitchSettings);
             await createCRstream.DisposeAsync();
         }
     }

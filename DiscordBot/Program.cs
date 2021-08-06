@@ -9,6 +9,7 @@ using DiscordBot.Serialization;
 using DiscordBot.Scripting;
 using DiscordBot.RSSFeedLink;
 using DiscordBot.CustomCommands;
+using DiscordBot.TwitchNotify;
 
 namespace DiscordBot
 {
@@ -17,6 +18,7 @@ namespace DiscordBot
         public static DiscordSocketClient _client;
         public static SettingsSerialization settings;
         public static CommandManager commandManager;
+        public static TwitchNotifier twitchNotifier;
 
         static string token;
         
@@ -26,6 +28,7 @@ namespace DiscordBot
         ScriptingCommands scriptingCommands;
         RSSFeedCommands rssCommands;
         CustomResponseCommands customResponseCommands;
+        TwitchNotifierCommands twitchNotifierCommands;
 
 
 
@@ -57,8 +60,13 @@ namespace DiscordBot
             rssCommands = new RSSFeedCommands();
             rssCommands.RegisterCommands(commandManager);
 
+            twitchNotifierCommands = new TwitchNotifierCommands();
+            twitchNotifierCommands.RegisterCommands(commandManager);
+
             customResponseCommands = new CustomResponseCommands();
             customResponseCommands.RegisterCommands(commandManager);
+
+            twitchNotifier = new TwitchNotifier();
         }
 
         // Discord.Net heavily utilizes TAP for async, so we create
