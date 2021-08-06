@@ -31,7 +31,6 @@ namespace DiscordBot.TwitchNotify
 
                 request.Method = "Get";
                 request.Timeout = 1000;
-                request.ContentType = "application/vnd.twitchtv.v5+json";
                 request.Headers.Add("Client-ID", "ID");
 
                 using (var s = request.GetResponse().GetResponseStream())
