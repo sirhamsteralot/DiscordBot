@@ -31,7 +31,7 @@ namespace DiscordBot.TwitchNotify
 
                 request.Method = "Get";
                 request.Timeout = 1000;
-                request.Headers.Add("Client-ID", "ID");
+                request.Headers.Add("Client-ID", "u363xalk2xef1g4miyom7wc7zq3fzn");
 
                 using (var s = request.GetResponse().GetResponseStream())
                 {
