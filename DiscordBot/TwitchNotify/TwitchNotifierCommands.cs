@@ -70,6 +70,7 @@ namespace DiscordBot.TwitchNotify
                     }
                 }
 
+                Program.settings.SerializeAsync();
                 await message.Channel.SendMessageAsync("added channel to follow!");
                 return;
             }
