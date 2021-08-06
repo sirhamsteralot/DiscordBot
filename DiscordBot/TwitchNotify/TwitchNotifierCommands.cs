@@ -12,7 +12,15 @@ namespace DiscordBot.TwitchNotify
         {
             manager.AddCommand("settwitchpollingdelay", SetTwitchPollingDelay, "sets the polling delay for twitch. usage: settwitchpollingdelay {delay(ms)}");
             manager.AddCommand("addtwitchchannel", AddChannel, "adds a twitch channel to give live notifications on. usage: addtwitchchannel {channelname} {discord channel}");
+            manager.AddCommand("livecheck", LiveCheck, "triggers a live check");
+        }
 
+        public async Task LiveCheck(SocketMessage message)
+        {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(message))
+                return;
+
+            Program.twitchNotifier.CheckForLive(this);
         }
 
         public async Task SetTwitchPollingDelay(SocketMessage message)
