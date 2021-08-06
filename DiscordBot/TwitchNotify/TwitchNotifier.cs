@@ -33,9 +33,9 @@ namespace DiscordBot.TwitchNotify
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
 
                 request.Method = "Get";
-                request.Timeout = 1000;
+                request.Timeout = 5000;
                 request.Headers.Add("Client-ID", "u363xalk2xef1g4miyom7wc7zq3fzn");
-                request.Headers.Add("Authorization", " Bearer " + Program.settings.systemSettings.twitchAuthorizationCode);
+                request.Headers.Add("Authorization", "Bearer " + Program.settings.systemSettings.twitchAuthorizationCode);
 
                 using (var s = request.GetResponse().GetResponseStream())
                 {
