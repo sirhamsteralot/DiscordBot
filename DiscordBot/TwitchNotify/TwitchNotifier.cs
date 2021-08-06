@@ -43,15 +43,14 @@ namespace DiscordBot.TwitchNotify
                     {
 
                         var jsonObject = JObject.Parse(sr.ReadToEnd());
-                        
 
-                        // twitch channel is online if stream is not null.
-                        bool newStatus = jsonObject?.GetValue("type")?.ToString() == "live";
+                        var theValue = jsonObject.SelectToken("data[0].type");
+                        bool newStatus = theValue.ToString() == "live";
 
                         if (newStatus && channel.LastStatus != newStatus)
                         {
                             var discordChannel = Program._client.GetChannel(channel.channelId) as ISocketMessageChannel;
-                            await discordChannel.SendMessageAsync($"{channel.ChannelName} went Live!/ntwitch.tv/{channel.ChannelName}");
+                            await discordChannel.SendMessageAsync($"{channel.ChannelName} went Live!\ntwitch.tv/{channel.ChannelName}");
                         }
 
                         channel.LastStatus = newStatus;
