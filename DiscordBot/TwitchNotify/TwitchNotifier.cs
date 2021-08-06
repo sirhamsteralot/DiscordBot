@@ -50,7 +50,7 @@ namespace DiscordBot.TwitchNotify
                         if (newStatus && channel.LastStatus != newStatus)
                         {
                             var discordChannel = Program._client.GetChannel(channel.channelId) as ISocketMessageChannel;
-                            await discordChannel.SendMessageAsync($"{channel.ChannelName} went Live!\ntwitch.tv/{channel.ChannelName}");
+                            await discordChannel.SendMessageAsync($"{channel.ChannelName} went Live!\nhttps://twitch.tv/{channel.ChannelName}");
                         }
 
                         channel.LastStatus = newStatus;
