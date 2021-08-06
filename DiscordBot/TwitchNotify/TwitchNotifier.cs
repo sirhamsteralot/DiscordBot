@@ -41,11 +41,15 @@ namespace DiscordBot.TwitchNotify
                 {
                     using (var sr = new System.IO.StreamReader(s))
                     {
+                        bool newStatus = false;
 
                         var jsonObject = JObject.Parse(sr.ReadToEnd());
 
                         var theValue = jsonObject.SelectToken("data[0].type");
-                        bool newStatus = theValue.ToString() == "live";
+                        if (theValue == null)
+                            newStatus = false;
+                        else
+                            newStatus = theValue.ToString() == "live";
 
                         if (newStatus && channel.LastStatus != newStatus)
                         {
