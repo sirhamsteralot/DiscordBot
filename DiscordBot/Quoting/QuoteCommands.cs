@@ -48,7 +48,7 @@ namespace DiscordBot.Quoting
                 int count = Program.settings.quoteSettings.quotes.RemoveAll(x => x.quote == argumentPart);
                 Program.settings.SerializeAsync();
 
-                if (count > 1)
+                if (count > 0)
                 {
                     await message.Channel.SendMessageAsync($"{count} matching quotes removed!");
                     return;
