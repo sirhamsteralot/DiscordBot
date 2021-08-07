@@ -51,11 +51,10 @@ namespace DiscordBot.Quoting
                 {
                     await message.Channel.SendMessageAsync($"{count} matching quotes removed!");
                     return;
-                } else
-                {
-                    await message.Channel.SendMessageAsync("No matching quotes found!");
-                    return;
                 }
+
+                await message.Channel.SendMessageAsync("No matching quotes found!");
+                return;
             }
 
             await message.Channel.SendMessageAsync("Missing Argument!");
