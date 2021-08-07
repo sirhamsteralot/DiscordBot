@@ -46,6 +46,7 @@ namespace DiscordBot.Quoting
             if (argumentPart != "")
             {
                 int count = Program.settings.quoteSettings.quotes.RemoveAll(x => x.quote == argumentPart);
+                Program.settings.SerializeAsync();
 
                 if (count > 1)
                 {
