@@ -41,7 +41,7 @@ namespace DiscordBot.Quoting
 
         public async Task RemoveQuoteCommand (SocketMessage message)
         {
-            string argumentPart = message.Content.Substring("quote".Length + Program.settings.systemSettings.commandCode.Length);
+            string argumentPart = message.Content.Substring("removequote".Length + Program.settings.systemSettings.commandCode.Length);
 
             if (argumentPart != "")
             {
