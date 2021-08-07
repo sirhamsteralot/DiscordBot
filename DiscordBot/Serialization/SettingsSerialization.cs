@@ -15,6 +15,7 @@ namespace DiscordBot.Serialization
         public RSSFeeds rssFeeds;
         public CustomResponseSettings customResponses;
         public TwitchNotifySettings twitchSettings;
+        public QuoteSettings quoteSettings;
 
         readonly string settingsPath = "Settings";
 
@@ -105,8 +106,27 @@ namespace DiscordBot.Serialization
                 {
                     twitchSettings = new TwitchNotifySettings();
                 }
+
+                string quoteSettingsPath = completeSettingsPath + '/' + "quoteSettings.json";
+
+                if (File.Exists(quoteSettingsPath))
+                {
+                    try
+                    {
+                        quoteSettings = JsonSerializer.Deserialize<QuoteSettings>(File.ReadAllText(quoteSettingsPath));
+                    }
+                    catch (JsonException)
+                    {
+                        quoteSettings = new QuoteSettings();
+                    }
+                }
+                else
+                {
+                    quoteSettings = new QuoteSettings();
+                }
             } else
             {
+                quoteSettings = new QuoteSettings();
                 twitchSettings = new TwitchNotifySettings();
                 customResponses = new CustomResponseSettings();
                 systemSettings = new SystemSettings();
@@ -139,7 +159,12 @@ namespace DiscordBot.Serialization
             fileName = completeSettingsPath + '/' + "twitchSettings.json";
             using FileStream createTNstream = File.Create(fileName);
             await JsonSerializer.SerializeAsync(createTNstream, twitchSettings);
-            await createCRstream.DisposeAsync();
+            await createTNstream.DisposeAsync();
+
+            fileName = completeSettingsPath + '/' + "quoteSettings.json";
+            using FileStream createQSstream = File.Create(fileName);
+            await JsonSerializer.SerializeAsync(createQSstream, quoteSettings);
+            await createQSstream.DisposeAsync();
         }
     }
 }

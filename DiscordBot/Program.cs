@@ -10,6 +10,7 @@ using DiscordBot.Scripting;
 using DiscordBot.RSSFeedLink;
 using DiscordBot.CustomCommands;
 using DiscordBot.TwitchNotify;
+using DiscordBot.Quoting;
 
 namespace DiscordBot
 {
@@ -29,6 +30,7 @@ namespace DiscordBot
         RSSFeedCommands rssCommands;
         CustomResponseCommands customResponseCommands;
         TwitchNotifierCommands twitchNotifierCommands;
+        QuoteCommands quoteCommands;
 
 
 
@@ -65,6 +67,9 @@ namespace DiscordBot
 
             customResponseCommands = new CustomResponseCommands();
             customResponseCommands.RegisterCommands(commandManager);
+
+            quoteCommands = new QuoteCommands();
+            quoteCommands.RegisterCommands(commandManager);
 
             twitchNotifier = new TwitchNotifier();
         }
