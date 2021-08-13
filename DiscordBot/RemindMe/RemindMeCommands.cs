@@ -17,9 +17,24 @@ namespace DiscordBot.RemindMe
 
         public async Task RemindMeCommand(SocketMessage message)
         {
+            string[] split = message.Content.Split(' ');
+
+            TimeSpan timeSpan;
+            int lastArgumentIndex;
+
+            if (!RemindMe.ParseTime(split, out timeSpan, out lastArgumentIndex))
+            {
+                await message.Channel.SendMessageAsync("Could not parse the timespan of your message!");
+                return;
+            }
+
+
+
+            
+
             IDMChannel dmChannel = await message.Author.GetOrCreateDMChannelAsync();
 
-            await dmChannel.SendMessageAsync("Test!");
+            await dmChannel.SendMessageAsync($"Test!\n{timeSpan)}");
         }
     }
 }
