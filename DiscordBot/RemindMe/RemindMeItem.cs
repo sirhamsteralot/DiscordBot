@@ -21,7 +21,7 @@ namespace DiscordBot.RemindMe
 
         private void SetTimer()
         {
-            timer = new Timer(TimerAction, this, (long)(DateTime.UtcNow - _reminderTime).TotalMilliseconds, Timeout.Infinite);
+            timer = new Timer(TimerAction, this, (long)(_reminderTime - DateTime.UtcNow).TotalMilliseconds, Timeout.Infinite);
         }
 
         private void TimerAction(object state)
