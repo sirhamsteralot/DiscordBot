@@ -17,7 +17,9 @@ namespace DiscordBot.RemindMe
 
         public async Task RemindMeCommand(SocketMessage message)
         {
+            IDMChannel dmChannel = await message.Author.GetOrCreateDMChannelAsync();
 
+            await dmChannel.SendMessageAsync("Test!");
         }
     }
 }
