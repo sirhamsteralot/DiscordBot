@@ -34,7 +34,7 @@ namespace DiscordBot.RemindMe
 
             IDMChannel dmChannel = await message.Author.GetOrCreateDMChannelAsync();
 
-            await dmChannel.SendMessageAsync($"Test!\n{timeSpan)}");
+            await dmChannel.SendMessageAsync($"Test!\n{timeSpan}");
         }
     }
 }
