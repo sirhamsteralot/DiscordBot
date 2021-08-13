@@ -34,6 +34,8 @@ namespace DiscordBot.RemindMe
             {
                 remindermessage += split[i] + " ";
             }
+
+            remindermessage = remindermessage.Trim();
             
 
             IDMChannel dmChannel = await message.Author.GetOrCreateDMChannelAsync();
