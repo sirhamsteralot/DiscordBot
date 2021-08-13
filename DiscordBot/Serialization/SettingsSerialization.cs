@@ -16,6 +16,7 @@ namespace DiscordBot.Serialization
         public CustomResponseSettings customResponses;
         public TwitchNotifySettings twitchSettings;
         public QuoteSettings quoteSettings;
+        public RemindMeSettings remindMeSettings;
 
         readonly string settingsPath = "Settings";
 
@@ -124,8 +125,27 @@ namespace DiscordBot.Serialization
                 {
                     quoteSettings = new QuoteSettings();
                 }
+
+                string remindMeSettingsPath = completeSettingsPath + '/' + "remindMeSettings.json";
+
+                if (File.Exists(remindMeSettingsPath))
+                {
+                    try
+                    {
+                        remindMeSettings = JsonSerializer.Deserialize<RemindMeSettings>(File.ReadAllText(remindMeSettingsPath));
+                    }
+                    catch (JsonException)
+                    {
+                        remindMeSettings = new RemindMeSettings();
+                    }
+                }
+                else
+                {
+                    remindMeSettings = new RemindMeSettings();
+                }
             } else
             {
+                remindMeSettings = new RemindMeSettings();
                 quoteSettings = new QuoteSettings();
                 twitchSettings = new TwitchNotifySettings();
                 customResponses = new CustomResponseSettings();
@@ -165,6 +185,11 @@ namespace DiscordBot.Serialization
             using FileStream createQSstream = File.Create(fileName);
             await JsonSerializer.SerializeAsync(createQSstream, quoteSettings);
             await createQSstream.DisposeAsync();
+
+            fileName = completeSettingsPath + '/' + "remindMeSettings.json";
+            using FileStream createRSstream = File.Create(fileName);
+            await JsonSerializer.SerializeAsync(createRSstream, remindMeSettings);
+            await createRSstream.DisposeAsync();
         }
     }
 }
