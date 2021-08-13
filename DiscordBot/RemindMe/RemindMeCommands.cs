@@ -24,7 +24,7 @@ namespace DiscordBot.RemindMe
 
             if (!RemindMe.ParseTime(split, out timeSpan, out lastArgumentIndex))
             {
-                await message.Channel.SendMessageAsync("Could not parse the timespan of your message!");
+                await message.Channel.SendMessageAsync("Could not parse the timespan of your message!\nMake sure every part of the timespan is split like: ``!remindme 10 d 5 h 20 m whatever the reminder is for``");
                 return;
             }
 
