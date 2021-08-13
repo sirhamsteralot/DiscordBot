@@ -14,7 +14,7 @@ namespace DiscordBot.RemindMe
             for (int i = 1; i < splitCommand.Length - 2; i += 2)
             {
                 TimeSpan tempSpan;
-                if (!TryParseTimePart(splitCommand[i..(i + 1)], out tempSpan))
+                if (!TryParseTimePart(new string[] { splitCommand[i], splitCommand[i + 1]}, out tempSpan))
                 {
                     lastTimeArgumentIndex = i - 1;
                     break;
@@ -34,7 +34,7 @@ namespace DiscordBot.RemindMe
         private static bool TryParseTimePart(string[] commandPart, out TimeSpan value)
         {
             if (commandPart.Length != 2)
-                throw new Exception("incorrect input argument! argument can only contain one identifier and one number");
+                throw new Exception("incorrect input argument length! argument can only contain one identifier and one number");
 
             value = TimeSpan.Zero;
 
