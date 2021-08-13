@@ -16,7 +16,7 @@ namespace DiscordBot.RemindMe
                 TimeSpan tempSpan;
                 if (!TryParseTimePart(new string[] { splitCommand[i], splitCommand[i + 1] }, out tempSpan))
                     break;
-
+                 
                 lastTimeArgumentIndex = i + 1;
 
                 totalTime += tempSpan;
