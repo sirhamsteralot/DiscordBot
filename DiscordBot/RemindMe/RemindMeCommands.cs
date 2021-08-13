@@ -11,7 +11,7 @@ namespace DiscordBot.RemindMe
     {
         public void RegisterCommands(CommandManager commandManager)
         {
-            commandManager.AddCommand("remindme", RemindMeCommand, "reminds");
+            commandManager.AddCommand("remindme", RemindMeCommand, "reminds a user of something after a certain timespan, usage: !remindme {time} {message}");
 
         }
 
