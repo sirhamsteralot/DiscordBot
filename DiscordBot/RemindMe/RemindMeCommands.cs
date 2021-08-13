@@ -30,7 +30,7 @@ namespace DiscordBot.RemindMe
 
 
             string remindermessage = "";
-            for (int i = lastArgumentIndex; i < split.Length; i++)
+            for (int i = lastArgumentIndex + 1; i < split.Length; i++)
             {
                 remindermessage += split[i] + " ";
             }
