@@ -29,12 +29,16 @@ namespace DiscordBot.RemindMe
             }
 
 
-
+            string remindermessage = "";
+            for (int i = lastArgumentIndex; i < split.Length; i++)
+            {
+                remindermessage += split[i] + " ";
+            }
             
 
             IDMChannel dmChannel = await message.Author.GetOrCreateDMChannelAsync();
 
-            await dmChannel.SendMessageAsync($"Test!\n{timeSpan}");
+            await dmChannel.SendMessageAsync($"Reminding you of ``{remindermessage}`` after\n{timeSpan}");
         }
     }
 }
