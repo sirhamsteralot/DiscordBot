@@ -14,11 +14,10 @@ namespace DiscordBot.RemindMe
             for (int i = 1; i < splitCommand.Length - 2; i += 2)
             {
                 TimeSpan tempSpan;
-                if (!TryParseTimePart(new string[] { splitCommand[i], splitCommand[i + 1]}, out tempSpan))
-                {
-                    lastTimeArgumentIndex = i - 1;
+                if (!TryParseTimePart(new string[] { splitCommand[i], splitCommand[i + 1] }, out tempSpan))
                     break;
-                }
+
+                lastTimeArgumentIndex = i + 1;
 
                 totalTime += tempSpan;
             }
