@@ -40,6 +40,17 @@ namespace DiscordBot.RemindMe
 
             IDMChannel dmChannel = await message.Author.GetOrCreateDMChannelAsync();
 
+            RemindMeItem reminder = new RemindMeItem()
+            {
+                reminder = remindermessage,
+                responseChannel = dmChannel.Id,
+                reminderTime = DateTime.UtcNow + timeSpan
+            };
+
+            Program.settings.remindMeSettings.remindMeItems.Add(reminder);
+            Program.settings.SerializeAsync();
+
+
             await dmChannel.SendMessageAsync($"Reminding you of ``{remindermessage}`` after\n{timeSpan}");
         }
     }

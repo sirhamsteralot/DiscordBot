@@ -7,6 +7,6 @@ namespace DiscordBot.Serialization
 {
     public class RemindMeSettings
     {
-        List<RemindMeItem> remindMeItems { get; set; } = new List<RemindMeItem>();
+        public List<RemindMeItem> remindMeItems { get; set; } = new List<RemindMeItem>();
     }
 }
