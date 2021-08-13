@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Discord.WebSocket;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -8,9 +9,9 @@ namespace DiscordBot.RemindMe
     public class RemindMeItem
     {
         // ALL TIMES WILL BE UTC!
-        // TODO: Return message to user after duetime is over
 
         public string reminder { get; set; }
+        public ulong responseChannel { get; set; }
 
         public DateTime reminderTime { get { return _reminderTime; } set { _reminderTime = value; SetTimer(); } }
 
@@ -25,7 +26,12 @@ namespace DiscordBot.RemindMe
 
         private void TimerAction(object state)
         {
-
+            try
+            {
+                var channel = Program._client.GetChannel(responseChannel) as ISocketMessageChannel;
+                channel.SendMessageAsync(reminder).GetAwaiter().GetResult();
+            } catch (Exception) { // fucking NOM
+            }
         }
     }
 }
