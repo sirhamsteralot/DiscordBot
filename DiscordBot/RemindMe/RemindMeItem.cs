@@ -34,6 +34,8 @@ namespace DiscordBot.RemindMe
                 channel.SendMessageAsync(reminder).GetAwaiter().GetResult();
             } catch (Exception) { // fucking NOM
             }
+
+            timer.Dispose();
         }
     }
 }
