@@ -36,6 +36,7 @@ namespace DiscordBot.RemindMe
             }
 
             timer.Dispose();
+            timer = null;
         }
     }
 }
