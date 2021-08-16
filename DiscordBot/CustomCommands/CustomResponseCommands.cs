@@ -4,19 +4,50 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordBot.Serialization;
+using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace DiscordBot.CustomCommands
 {
     public class CustomResponseCommands : ICommandGroup
     {
         StringBuilder sb = new StringBuilder();
+        Random r = new Random();
 
         public void RegisterCommands(CommandManager manager)
         {
             manager.AddCommand("addresponse", AddResponseCommand, "adds a response, usage: addresponse *response_name* *response_content*");
             manager.AddCommand("removeresponse", RemoveResponseCommand, "removes a response, usage: removeresponse *response_name*");
             manager.AddCommand("listcustom", ListCustomCommandsCommand, "lists the custom commands");
+            manager.AddCommand("roni", RoniCommand, "try it");
+        }
 
+        public async Task RoniCommand(SocketMessage message)
+        {
+            string Url = "https://pixabay.com/api/?key=22956172-a492888d223e5d927df9dbbf6&q=feet&safesearch=false";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+
+            request.Method = "Get";
+            request.Timeout = 5000;
+
+            using (var s = request.GetResponse().GetResponseStream())
+            {
+                using (var sr = new System.IO.StreamReader(s))
+                {
+
+                    var jsonObject = JObject.Parse(sr.ReadToEnd());
+                    JArray items = (JArray)jsonObject["hits"];
+
+                    JToken item;
+                    do
+                    {
+                        item = items[r.Next(items.Count)]; 
+                        
+                    } while (item["tags"].ToString().Contains("baby") || item["tags"].ToString().Contains("infant"));
+
+                    await message.Channel.SendMessageAsync(item["webformatURL"].ToString());
+                }
+            }
         }
 
         public async Task ListCustomCommandsCommand(SocketMessage message)
