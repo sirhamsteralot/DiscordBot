@@ -25,7 +25,7 @@ namespace DiscordBot.Quoting
                 int nr;
                 if (int.TryParse(argumentPart, out nr))
                 {
-                    if (nr >= Program.settings.quoteSettings.quotes.Count)
+                    if (nr >= Program.settings.quoteSettings.quotes.Count || nr < 0)
                     {
                         await message.Channel.SendMessageAsync("Quote doesnt exist!");
                         return;
