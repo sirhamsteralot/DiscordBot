@@ -22,6 +22,19 @@ namespace DiscordBot.Quoting
 
             if (argumentPart != "")
             {
+                int nr;
+                if (int.TryParse(argumentPart, out nr))
+                {
+                    if (nr >= Program.settings.quoteSettings.quotes.Count)
+                    {
+                        await message.Channel.SendMessageAsync("Quote doesnt exist!");
+                        return;
+                    }
+
+                    await message.Channel.SendMessageAsync($"{nr}: {Program.settings.quoteSettings.quotes[nr].quote}");
+                    return;
+                }
+
                 Quote toadd = new Quote
                 {
                     quote = argumentPart,
@@ -34,9 +47,10 @@ namespace DiscordBot.Quoting
                 return;
             }
 
-            Quote quote = Program.settings.quoteSettings.quotes[r.Next(Program.settings.quoteSettings.quotes.Count)];
+            int random = r.Next(Program.settings.quoteSettings.quotes.Count);
+            Quote quote = Program.settings.quoteSettings.quotes[random];
 
-            await message.Channel.SendMessageAsync(quote.quote);
+            await message.Channel.SendMessageAsync($"{random}: {quote.quote}");
         }
 
         public async Task RemoveQuoteCommand (SocketMessage message)
