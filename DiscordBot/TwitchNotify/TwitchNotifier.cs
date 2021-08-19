@@ -58,7 +58,9 @@ namespace DiscordBot.TwitchNotify
                         }
 
                         channel.LastStatus = newStatus;
-                        Program.settings.SerializeAsync();
+
+                        Program.settings.twitchSettings.RequiresSaving();
+                        Program.settings.SerializeAsync(false);
                     }
                 }
             }

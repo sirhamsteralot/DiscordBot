@@ -38,7 +38,8 @@ namespace DiscordBot.RSSFeedLink
                     else
                     {
                         trackedFeed.lastPostDate = item.PublishDate;
-                        Program.settings.SerializeAsync();
+                        Program.settings.rssFeeds.RequiresSaving();
+                        Program.settings.SerializeAsync(false);
                     }
 
                     await PrintRSS(item, trackedFeed);

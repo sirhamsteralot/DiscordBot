@@ -40,8 +40,11 @@ namespace DiscordBot.Quoting
                     quote = argumentPart,
                     date = message.Timestamp
                 };
-                Program.settings.quoteSettings.quotes.Add(toadd);
-                Program.settings.SerializeAsync();
+
+                var settings = Program.settings.quoteSettings;
+                settings.quotes.Add(toadd);
+                settings.RequiresSaving();
+                Program.settings.SerializeAsync(false);
 
                 await message.Channel.SendMessageAsync("Quote Added!");
                 return;
@@ -71,14 +74,16 @@ namespace DiscordBot.Quoting
                         return;
                     }
                     Program.settings.quoteSettings.quotes.RemoveAt(nr);
-                    Program.settings.SerializeAsync();
+                    Program.settings.quoteSettings.RequiresSaving();
+                    Program.settings.SerializeAsync(false);
 
                     await message.Channel.SendMessageAsync($"removed quote: {nr}");
                     return;
                 }
 
                 int count = Program.settings.quoteSettings.quotes.RemoveAll(x => x.quote == argumentPart);
-                Program.settings.SerializeAsync();
+                Program.settings.quoteSettings.RequiresSaving();
+                Program.settings.SerializeAsync(false);
 
                 if (count > 0)
                 {

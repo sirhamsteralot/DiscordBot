@@ -87,8 +87,9 @@ namespace DiscordBot.CustomCommands
             response.Content = sb.ToString();
             sb.Clear();
 
-            Program.settings.customResponses.responses.Add(response);
-
+            var settings = Program.settings.customResponses;
+            settings.responses.Add(response);
+            settings.RequiresSaving(false);
             Program.settings.SerializeAsync();
             await message.Channel.SendMessageAsync("Response Added!");
         }

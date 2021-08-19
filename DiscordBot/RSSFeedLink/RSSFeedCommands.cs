@@ -44,7 +44,8 @@ namespace DiscordBot.RSSFeedLink
 
             feed.rssURL = arguments[2];
             Program.settings.rssFeeds.trackedFeeds.Add(feed);
-            Program.settings.SerializeAsync();
+            Program.settings.rssFeeds.RequiresSaving();
+            Program.settings.SerializeAsync(false);
 
             await message.Channel.SendMessageAsync($"RSS Feed added\n channel: {message.Channel.Name}\n URL: {arguments[2]}");
 

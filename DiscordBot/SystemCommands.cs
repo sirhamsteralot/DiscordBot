@@ -109,7 +109,8 @@ namespace DiscordBot
                 }
 
                 Program.settings.systemSettings.trustedUsers.Add(result);
-                Program.settings.SerializeAsync();
+                Program.settings.systemSettings.RequiresSaving();
+                Program.settings.SerializeAsync(false);
                 await message.Channel.SendMessageAsync("added trusted user and saved!");
                 return;
             }
@@ -137,7 +138,8 @@ namespace DiscordBot
                 }
 
                 Program.settings.systemSettings.bannedUsers.Add(result);
-                Program.settings.SerializeAsync();
+                Program.settings.systemSettings.RequiresSaving();
+                Program.settings.SerializeAsync(false);
                 await message.Channel.SendMessageAsync("banned user and saved!");
                 return;
             }
@@ -166,7 +168,8 @@ namespace DiscordBot
 
                 if (Program.settings.systemSettings.bannedUsers.RemoveWhere(x => x == result) > 0)
                 {
-                    Program.settings.SerializeAsync();
+                    Program.settings.systemSettings.RequiresSaving();
+                    Program.settings.SerializeAsync(false);
                     await message.Channel.SendMessageAsync("unbanned user and saved!");
                 }
 
@@ -203,7 +206,8 @@ namespace DiscordBot
 
                 Program.commandManager.CommandStart = Program.settings.systemSettings.commandCode;
 
-                Program.settings.SerializeAsync();
+                Program.settings.systemSettings.RequiresSaving();
+                Program.settings.SerializeAsync(false);
 
                 await message.Channel.SendMessageAsync("Changed command code and saved!");
                 return;

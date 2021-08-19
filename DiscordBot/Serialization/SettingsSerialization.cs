@@ -154,42 +154,60 @@ namespace DiscordBot.Serialization
             }
         }
 
-        public async void SerializeAsync()
+        public async void SerializeAsync(bool saveAll = true)
         {
             string completeSettingsPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + '/' + settingsPath;
 
             if (!Directory.Exists(completeSettingsPath))
                 Directory.CreateDirectory(completeSettingsPath);
 
-            string fileName = completeSettingsPath + '/' + "systemsettings.json";
-            using FileStream createStream = File.Create(fileName);
-            await JsonSerializer.SerializeAsync(createStream, systemSettings);
-            await createStream.DisposeAsync();
+            if (saveAll || systemSettings.GetRequiresSaving())
+            {
+                string fileName = completeSettingsPath + '/' + systemSettings.GetSaveName();
+                using FileStream createStream = File.Create(fileName);
+                await JsonSerializer.SerializeAsync(createStream, systemSettings);
+                await createStream.DisposeAsync();
+            }
 
-            fileName = completeSettingsPath + '/' + "rssfeeds.json";
-            using FileStream createStreamRss = File.Create(fileName);
-            await JsonSerializer.SerializeAsync(createStreamRss, rssFeeds);
-            await createStreamRss.DisposeAsync();
+            if (saveAll || rssFeeds.GetRequiresSaving())
+            {
+                string fileName = completeSettingsPath + '/' + rssFeeds.GetSaveName();
+                using FileStream createStreamRss = File.Create(fileName);
+                await JsonSerializer.SerializeAsync(createStreamRss, rssFeeds);
+                await createStreamRss.DisposeAsync();
+            }
 
-            fileName = completeSettingsPath + '/' + "customresponses.json";
-            using FileStream createCRstream = File.Create(fileName);
-            await JsonSerializer.SerializeAsync(createCRstream, customResponses);
-            await createCRstream.DisposeAsync();
+            if (saveAll || customResponses.GetRequiresSaving())
+            {
+                string fileName = completeSettingsPath + '/' + customResponses.GetSaveName();
+                using FileStream createCRstream = File.Create(fileName);
+                await JsonSerializer.SerializeAsync(createCRstream, customResponses);
+                await createCRstream.DisposeAsync();
+            }
 
-            fileName = completeSettingsPath + '/' + "twitchSettings.json";
-            using FileStream createTNstream = File.Create(fileName);
-            await JsonSerializer.SerializeAsync(createTNstream, twitchSettings);
-            await createTNstream.DisposeAsync();
+            if (saveAll || twitchSettings.GetRequiresSaving())
+            {
+                string fileName = completeSettingsPath + '/' + twitchSettings.GetSaveName();
+                using FileStream createTNstream = File.Create(fileName);
+                await JsonSerializer.SerializeAsync(createTNstream, twitchSettings);
+                await createTNstream.DisposeAsync();
+            }
 
-            fileName = completeSettingsPath + '/' + "quoteSettings.json";
-            using FileStream createQSstream = File.Create(fileName);
-            await JsonSerializer.SerializeAsync(createQSstream, quoteSettings);
-            await createQSstream.DisposeAsync();
+            if (saveAll || quoteSettings.GetRequiresSaving())
+            {
+                string fileName = completeSettingsPath + '/' + quoteSettings.GetSaveName();
+                using FileStream createQSstream = File.Create(fileName);
+                await JsonSerializer.SerializeAsync(createQSstream, quoteSettings);
+                await createQSstream.DisposeAsync();
+            }
 
-            fileName = completeSettingsPath + '/' + "remindMeSettings.json";
-            using FileStream createRSstream = File.Create(fileName);
-            await JsonSerializer.SerializeAsync(createRSstream, remindMeSettings);
-            await createRSstream.DisposeAsync();
+            if (saveAll || remindMeSettings.GetRequiresSaving())
+            {
+                string fileName = completeSettingsPath + '/' + remindMeSettings.GetSaveName();
+                using FileStream createRSstream = File.Create(fileName);
+                await JsonSerializer.SerializeAsync(createRSstream, remindMeSettings);
+                await createRSstream.DisposeAsync();
+            }
         }
     }
 }

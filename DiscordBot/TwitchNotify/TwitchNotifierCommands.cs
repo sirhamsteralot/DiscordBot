@@ -27,8 +27,8 @@ namespace DiscordBot.TwitchNotify
             if (split.Length > 1)
             {
                 Program.settings.systemSettings.twitchAuthorizationCode = split[1];
-
-                Program.settings.SerializeAsync();
+                Program.settings.systemSettings.RequiresSaving();
+                Program.settings.SerializeAsync(false);
                 await message.Channel.SendMessageAsync($"set 0auth code!");
                 return;
             }
@@ -46,8 +46,8 @@ namespace DiscordBot.TwitchNotify
             if (split.Length > 1)
             {
                 int removed = Program.settings.twitchSettings.twitchChannels.RemoveWhere(x => x.ChannelName == split[1]);
-
-                Program.settings.SerializeAsync();
+                Program.settings.twitchSettings.RequiresSaving();
+                Program.settings.SerializeAsync(false);
                 await message.Channel.SendMessageAsync($"removed {removed} channels to follow!");
                 return;
             }
@@ -80,7 +80,8 @@ namespace DiscordBot.TwitchNotify
                 if (int.TryParse(split[1], out value))
                 {
                     Program.settings.twitchSettings.twitchPollingDelay = value;
-                    Program.settings.SerializeAsync();
+                    Program.settings.twitchSettings.RequiresSaving();
+                    Program.settings.SerializeAsync(false);
 
                     await message.Channel.SendMessageAsync("changed value and saved!");
                 }
@@ -120,7 +121,8 @@ namespace DiscordBot.TwitchNotify
                     }
                 }
 
-                Program.settings.SerializeAsync();
+                Program.settings.twitchSettings.RequiresSaving();
+                Program.settings.SerializeAsync(false);
                 await message.Channel.SendMessageAsync("added channel to follow!");
                 return;
             }

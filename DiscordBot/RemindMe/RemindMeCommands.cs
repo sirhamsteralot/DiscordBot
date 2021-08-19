@@ -48,7 +48,8 @@ namespace DiscordBot.RemindMe
             };
 
             Program.settings.remindMeSettings.remindMeItems.Add(reminder);
-            Program.settings.SerializeAsync();
+            Program.settings.remindMeSettings.RequiresSaving();
+            Program.settings.SerializeAsync(false);
 
 
             await dmChannel.SendMessageAsync($"Reminding you of `{remindermessage}` after\n{timeSpan}");
