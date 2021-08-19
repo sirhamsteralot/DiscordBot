@@ -61,6 +61,8 @@ namespace DiscordBot
                     string response = $"Error executing command!\n" +
                         $"```{e.Message}```";
 
+                    Console.WriteLine(response);
+
                     await message.Channel.SendMessageAsync(response);
                 }
                 
