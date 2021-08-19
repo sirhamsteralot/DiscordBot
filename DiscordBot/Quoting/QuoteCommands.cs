@@ -62,6 +62,21 @@ namespace DiscordBot.Quoting
 
             if (argumentPart != "")
             {
+                int nr;
+                if (int.TryParse(argumentPart, out nr))
+                {
+                    if (nr >= Program.settings.quoteSettings.quotes.Count || nr < 0)
+                    {
+                        await message.Channel.SendMessageAsync("Quote doesnt exist!");
+                        return;
+                    }
+                    Program.settings.quoteSettings.quotes.RemoveAt(nr);
+                    Program.settings.SerializeAsync();
+
+                    await message.Channel.SendMessageAsync($"removed quote: {nr}");
+                    return;
+                }
+
                 int count = Program.settings.quoteSettings.quotes.RemoveAll(x => x.quote == argumentPart);
                 Program.settings.SerializeAsync();
 
