@@ -6,6 +6,14 @@ namespace DiscordBot.RemindMe
 {
     public class RemindMe
     {
+        public static void Init()
+        {
+            foreach (var reminder in Program.settings.remindMeSettings.remindMeItems)
+            {
+                reminder.Init();
+            }
+        }
+
         public static bool ParseTime(string[] splitCommand, out TimeSpan time, out int lastTimeArgumentIndex)
         {
             TimeSpan totalTime = TimeSpan.Zero;

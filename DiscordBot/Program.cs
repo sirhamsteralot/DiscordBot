@@ -77,6 +77,9 @@ namespace DiscordBot
             remindMeCommands.RegisterCommands(commandManager);
 
             twitchNotifier = new TwitchNotifier();
+
+            //Init allt he reminders and stuff
+            RemindMe.RemindMe.Init();
         }
 
         // Discord.Net heavily utilizes TAP for async, so we create

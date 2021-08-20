@@ -19,6 +19,11 @@ namespace DiscordBot.RemindMe
 
         private Timer timer;
 
+        public void Init()
+        {
+            SetTimer();
+        }
+
         private void SetTimer()
         {
             long diff = (long)(_reminderTime - DateTime.UtcNow).TotalMilliseconds;
