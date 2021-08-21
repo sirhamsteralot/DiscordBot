@@ -12,6 +12,7 @@ using DiscordBot.CustomCommands;
 using DiscordBot.TwitchNotify;
 using DiscordBot.Quoting;
 using DiscordBot.RemindMe;
+using DiscordBot.Dice;
 
 namespace DiscordBot
 {
@@ -33,6 +34,7 @@ namespace DiscordBot
         TwitchNotifierCommands twitchNotifierCommands;
         QuoteCommands quoteCommands;
         RemindMeCommands remindMeCommands;
+        DiceCommands diceCommands;
 
 
 
@@ -75,6 +77,9 @@ namespace DiscordBot
 
             remindMeCommands = new RemindMeCommands();
             remindMeCommands.RegisterCommands(commandManager);
+
+            diceCommands = new DiceCommands();
+            diceCommands.RegisterCommands(commandManager);
 
             twitchNotifier = new TwitchNotifier();
 
