@@ -43,6 +43,9 @@ namespace DiscordBot.Dice
 
             switch (diceType)
             {
+                case "d2":
+                    RollDice(2, diceCount, diceRolls);
+                    break;
                 case "d4":
                     RollDice(4, diceCount, diceRolls);
                     break;
