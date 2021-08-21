@@ -30,8 +30,12 @@ namespace DiscordBot.Dice
             if (split.Length > 2)
             {
                 diceType = split[2];
-                if (int.TryParse(split[1], out diceCount))
+                if (!int.TryParse(split[1], out diceCount))
+                {
                     await arg.Channel.SendMessageAsync("invalid count argument!");
+                    return;
+                }
+                
             }
 
             sb.Append("Rolling ").Append(diceCount).Append(" ").AppendLine(diceType);
