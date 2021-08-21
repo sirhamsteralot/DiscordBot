@@ -88,7 +88,7 @@ namespace DiscordBot.Dice
             rolls.Clear();
             for (int i = 0; i < diceCount; i++)
             {
-                rolls.Add(random.Next(1, maxVal));
+                rolls.Add(random.Next(1, maxVal + 1));
             }
         }
     }
