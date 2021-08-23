@@ -125,6 +125,7 @@ namespace DiscordBot.Dice
             for (int i = 0; i < diceRolls.Count; i++)
             {
                 sb.Append(diceRolls[i].ToString()).Append(" ");
+                total += diceRolls[i];
             }
 
             diceRolls.Sort();
