@@ -48,7 +48,7 @@ namespace DiscordBot.Dice
                 sb.Append(roll.ToString()).Append(" ");
             }
             sb.AppendLine();
-            sb.AppendLine($"Statroll: {total - lowest}```");
+            sb.Append($"Statroll: {total - lowest}```");
         }
 
         private async Task DiceRoll(SocketMessage arg)
