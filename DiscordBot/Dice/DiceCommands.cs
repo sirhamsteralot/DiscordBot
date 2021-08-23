@@ -122,14 +122,16 @@ namespace DiscordBot.Dice
 
             int total = 0;
 
-            diceRolls.Sort();
-
             for (int i = 0; i < diceRolls.Count; i++)
             {
                 sb.Append(diceRolls[i].ToString()).Append(" ");
+            }
 
-                if (i < diceRolls.Count - dropLowest)
-                    total += diceRolls[i];
+            diceRolls.Sort();
+
+            for (int i = 0; i < diceRolls.Count && i < dropLowest; i++)
+            {
+                total -= diceRolls[i];
             }
 
             sb.AppendLine();
