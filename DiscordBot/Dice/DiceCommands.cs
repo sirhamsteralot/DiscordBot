@@ -83,6 +83,7 @@ namespace DiscordBot.Dice
                 total += roll;
             }
 
+            sb.AppendLine();
             sb.Append("total: ").AppendLine(total.ToString());
 
             sb.AppendLine("```");
