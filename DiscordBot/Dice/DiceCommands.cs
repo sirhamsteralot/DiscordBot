@@ -72,6 +72,17 @@ namespace DiscordBot.Dice
                 
             }
 
+            int dropLowest = 0;
+
+            if (split.Length > 3)
+            {
+                if (!int.TryParse(split[3], out dropLowest))
+                {
+                    await arg.Channel.SendMessageAsync("invalid drop lowest argument!");
+                    return;
+                }
+            }
+
             sb.Append("Rolling ").Append(diceCount).Append(" ").AppendLine(diceType);
             
 
@@ -111,14 +122,21 @@ namespace DiscordBot.Dice
 
             int total = 0;
 
-            foreach (var roll in diceRolls)
+            diceRolls.Sort();
+
+            for (int i = 0; i < diceRolls.Count; i++)
             {
-                sb.Append("roll: ").AppendLine(roll.ToString());
-                total += roll;
+                sb.Append(diceRolls[i].ToString()).Append(" ");
+
+                if (i < diceRolls.Count - dropLowest)
+                    total += diceRolls[i];
             }
 
             sb.AppendLine();
-            sb.Append("total: ").AppendLine(total.ToString());
+            if (dropLowest > 0)
+                sb.Append($"total (lowest {dropLowest} dropped): ").AppendLine(total.ToString());
+            else
+                sb.Append("total: ").AppendLine(total.ToString());
 
             sb.AppendLine("```");
 
