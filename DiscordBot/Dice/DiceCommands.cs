@@ -15,6 +15,40 @@ namespace DiscordBot.Dice
         public void RegisterCommands(CommandManager commandManager)
         {
             commandManager.AddCommand("roll", DiceRoll, "rolls a dice, usage: roll {d4/d6/d8/d10/d12/d20/d100} *OR* roll {amount} {d4/d6/d8/d10/d12/d20/d100}");
+            commandManager.AddCommand("rollcharacter", RollCharacter, "Rolls up 6 character stats");
+        }
+
+        private async Task RollCharacter(SocketMessage arg)
+        {
+            sb.AppendLine("Rolling character stats: ");
+            for (int i = 0; i < 6; i++)
+            {
+                RollStat();
+            }
+
+            await arg.Channel.SendMessageAsync(sb.ToString());
+            sb.Clear();
+        }
+
+        private void RollStat()
+        {
+            RollDice(6, 4, diceRolls);
+
+            int lowest = int.MaxValue;
+            int total = 0;
+
+            sb.AppendLine("```");
+            foreach (int roll in diceRolls)
+            {
+                if (roll < lowest)
+                    lowest = roll;
+
+                total += roll;
+
+                sb.Append(roll.ToString()).Append(" ");
+            }
+            sb.AppendLine();
+            sb.AppendLine($"Statroll: {total - lowest}```");
         }
 
         private async Task DiceRoll(SocketMessage arg)
