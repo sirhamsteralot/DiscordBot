@@ -75,10 +75,15 @@ namespace DiscordBot.Dice
 
             sb.AppendLine("```");
 
+            int total = 0;
+
             foreach (var roll in diceRolls)
             {
                 sb.Append("roll: ").AppendLine(roll.ToString());
+                total += roll;
             }
+
+            sb.Append("total: ").AppendLine(total.ToString());
 
             sb.AppendLine("```");
 
