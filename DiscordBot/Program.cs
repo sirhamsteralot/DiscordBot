@@ -46,7 +46,13 @@ namespace DiscordBot
 
             // It is recommended to Dispose of a client when you are finished
             // using it, at the end of your app's lifetime.
-            _client = new DiscordSocketClient();
+            var config = new DiscordSocketConfig
+            {
+                AlwaysDownloadUsers = true,
+                MessageCacheSize = 100
+            };
+
+            _client = new DiscordSocketClient(config);
 
             commandManager = new CommandManager(_client, settings.systemSettings.commandCode);
 

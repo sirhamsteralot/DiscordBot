@@ -35,7 +35,8 @@ namespace DiscordBot.RemindMe
         {
             try
             {
-                var channel = Program._client.GetUser(responseChannel).GetOrCreateDMChannelAsync() as ISocketMessageChannel;
+                var user = Program._client.GetUser(responseChannel);
+                var channel = user.GetOrCreateDMChannelAsync().GetAwaiter().GetResult();
 
                 //var channel = Program._client.GetChannel(responseChannel) as ISocketMessageChannel;
                 channel.SendMessageAsync(reminder).GetAwaiter().GetResult();
