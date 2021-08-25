@@ -44,8 +44,6 @@ namespace DiscordBot
 
             settings.Deserialize();
 
-            // It is recommended to Dispose of a client when you are finished
-            // using it, at the end of your app's lifetime.
             var config = new DiscordSocketConfig
             {
                 AlwaysDownloadUsers = true,
