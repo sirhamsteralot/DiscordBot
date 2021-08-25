@@ -43,7 +43,7 @@ namespace DiscordBot.RemindMe
             RemindMeItem reminder = new RemindMeItem()
             {
                 reminder = remindermessage,
-                responseChannel = dmChannel.Id,
+                responseChannel = message.Author.Id,
                 reminderTime = DateTime.UtcNow + timeSpan
             };
 
