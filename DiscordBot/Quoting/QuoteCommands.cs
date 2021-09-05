@@ -18,6 +18,11 @@ namespace DiscordBot.Quoting
 
         public async Task QuoteCommand(SocketMessage message)
         {
+            var channel = message.Channel as SocketGuildChannel;
+            if (channel != null)
+                if (channel.Guild.Id == 840295290941734952ul)
+                    return;
+
             string argumentPart = message.Content.Substring("quote".Length + Program.settings.systemSettings.commandCode.Length);
 
             if (argumentPart != "")
