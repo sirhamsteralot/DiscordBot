@@ -22,7 +22,7 @@ namespace DiscordBot.CustomCommands
                 return;
             }
 
-            await message.Channel.SendMessageAsync($"{message.Author.Mention}, Command \"{command}\" not found!");
+            //await message.Channel.SendMessageAsync($"{message.Author.Mention}, Command \"{command}\" not found!");
         }
     }
 }
