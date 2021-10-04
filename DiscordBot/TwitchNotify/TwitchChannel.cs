@@ -7,6 +7,7 @@ namespace DiscordBot.TwitchNotify
     public class TwitchChannel
     {
         public string ChannelName { get; set; }
+        public string MentionId { get; set; }
         public bool LastStatus { get; set; }
         public ulong channelId { get; set; }
     }

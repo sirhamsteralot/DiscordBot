@@ -109,6 +109,9 @@ namespace DiscordBot.TwitchNotify
                     LastStatus = false
                 };
 
+                if (split.Length > 3)
+                    channel.MentionId = split[3];
+
                 Program.settings.twitchSettings.twitchChannels.Add(channel);
 
                 var guildChannel = message.Channel as SocketGuildChannel;
