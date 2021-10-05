@@ -60,7 +60,7 @@ namespace DiscordBot.TwitchNotify
                                 if (string.IsNullOrEmpty(channel.MentionId))
                                     await discordChannel.SendMessageAsync($"{channel.ChannelName} went Live!\nhttps://twitch.tv/{channel.ChannelName}");
                                 else
-                                    await discordChannel.SendMessageAsync($"<@{channel.MentionId}> {channel.ChannelName} went Live!\nhttps://twitch.tv/{channel.ChannelName}");
+                                    await discordChannel.SendMessageAsync($"<@&{channel.MentionId}> {channel.ChannelName} went Live!\nhttps://twitch.tv/{channel.ChannelName}");
                             }
 
                             channel.LastStatus = newStatus;
