@@ -14,6 +14,7 @@ namespace DiscordBot
 
         public void RegisterCommands(CommandManager manager)
         {
+            manager.AddCommand("searchquotes", SearchQuotesInChannel, "searches quotes in this channel, usage: searchquotes *frommessageid*");
             manager.AddCommand("ping", PongCommand, "pongs");
             manager.AddCommand("ly", LYCommand);
             manager.AddCommand("save", SaveSettingsCommand, "saves settings to server");
@@ -26,6 +27,28 @@ namespace DiscordBot
             manager.AddCommand("shutdown", ShutdownCommand, "Shuts down the bot");
             manager.AddCommand("help", HelpCommand, "Shows a list of all commands, use Help *command name* to get detailed information about a command.");
             _manager = manager;
+        }
+
+        public async Task SearchQuotesInChannel(SocketMessage command)
+        {
+            if (!PermissionsChecker.IsMessageFromTrustedUser(command))
+                return;
+
+            ulong startMessageId = ulong.Parse(command.Content.Trim());
+
+            responseBuilder.AppendLine("quotes added in this channel: ").AppendLine();
+
+            await foreach (var page in command.Channel.GetMessagesAsync(startMessageId, Discord.Direction.After, int.MaxValue))
+            {
+                foreach (var message in page)
+                {
+                    if (message.Content.StartsWith("!quote "))
+                        responseBuilder.AppendLine(message.Content);
+                }
+            }
+
+            await command.Channel.SendMessageAsync(responseBuilder.ToString());
+            responseBuilder.Clear();
         }
 
         public async Task HelpCommand(SocketMessage message)
