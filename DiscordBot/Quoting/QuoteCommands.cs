@@ -51,7 +51,7 @@ namespace DiscordBot.Quoting
                 settings.RequiresSaving();
                 Program.settings.SerializeAsync(false);
 
-                await message.Channel.SendMessageAsync("Quote Added!");
+                await message.Channel.SendMessageAsync($"Quote #{settings.quotes.Count - 1} Added!");
                 return;
             }
 
