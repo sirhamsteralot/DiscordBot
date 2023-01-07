@@ -19,7 +19,7 @@ namespace DiscordBot.CustomCommands
             manager.AddCommand("addresponse", AddResponseCommand, "adds a response, usage: addresponse *response_name* *response_content*");
             manager.AddCommand("removeresponse", RemoveResponseCommand, "removes a response, usage: removeresponse *response_name*");
             manager.AddCommand("listcustom", ListCustomCommandsCommand, "lists the custom commands");
-            manager.AddCommand("roni", RoniCommand, "try it");
+            //manager.AddCommand("roni", RoniCommand, "try it"); fuck this lmao
         }
 
         public async Task RoniCommand(SocketMessage message)
@@ -54,7 +54,11 @@ namespace DiscordBot.CustomCommands
         {
             sb.AppendLine("custom responses:");
 
-            foreach (var response in Program.settings.customResponses.responses)
+            var responseList = new List<CustomResponse>();
+            responseList.AddRange(Program.settings.customResponses.responses);
+            responseList.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+            foreach (var response in responseList)
             {
                 sb.AppendLine(response.Name);
             }
