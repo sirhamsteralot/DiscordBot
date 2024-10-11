@@ -16,7 +16,6 @@ namespace DiscordBot
         {
             manager.AddCommand("searchquotes", SearchQuotesInChannel, "searches quotes in this channel, usage: searchquotes *frommessageid*");
             manager.AddCommand("ping", PongCommand, "pongs");
-            manager.AddCommand("ly", LYCommand);
             manager.AddCommand("save", SaveSettingsCommand, "saves settings to server");
             manager.AddCommand("setcommandcode", SetCommandCode, "sets a new command code, usage: setcommandcode *code*");
             manager.AddCommand("addtrusteduser", AddTrustedUserCommand, "Adds a trusted user, usage: addtrusteduser *id*");
@@ -101,11 +100,6 @@ namespace DiscordBot
             Environment.Exit(0);
         }
 
-        public async Task LYCommand(SocketMessage message)
-        {
-            if (message.Author.Id == 302917497437290496)
-                await message.Channel.SendMessageAsync("I love you");
-        }
         public async Task GetAuthorIDCommand(SocketMessage message)
         {
             await message.Channel.SendMessageAsync(message.Author.Id.ToString());
